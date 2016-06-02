@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% load django_tables2 %}
+{% load crispy_forms_tags %}
+
+{% block meta_title %}Parent List{% endblock %}
+
+{% block page_header_title %}Parents{% endblock %}
+{% block page_header_description %}List of all parents{% endblock %}
+
+{% block crumb %}
+    {{ block.super }}
+    <li class="active"><span class="fa fa-female"></span> Parents</li>
+{% endblock %}
+
+{% block main %}
+
+    {% render_table table %}
+
+    <div class="alert alert-dismissable alert-info" data-alert="alert">
+        <button type="button" class="close" data-dismiss="alert"><span class="fa fa-times"></span></button>
+        <strong>Note:</strong> Parents can be added by through the Family Form. Click the Families NavBar button at the
+        top, then Open a Family (or add a new one).
+    </div>
+
+{% endblock %}
+
+
+{% block javascript %}
+    <script src="{{ STATIC_URL }}js/jquery.dataTables.min.js"></script>
+    <script src="{{ STATIC_URL }}js/dataTables.tableTools.js"></script>
+    <script src="{{ STATIC_URL }}js/dataTables.bootstrap.js"></script>
+
+    <script src="{{ STATIC_URL }}js/dataTables.init.js"></script>
+{% endblock %}

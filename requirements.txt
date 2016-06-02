@@ -1,0 +1,12 @@
+Django
+django-crispy-forms
+django-localflavor
+django-debug-toolbar
+django-braces
+django-tables2
+xlwt
+pytz
+django-model-utils
+django-extensions
+djangorestframework
+python-dateutil

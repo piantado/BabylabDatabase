@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block meta_title %}Child Add{%  endblock %}
+
+{% block page_header_title%}Child{% endblock %}
+{% block page_header_description %}New Child{% endblock %}
+
+{% block crumb %}
+    {{ block.super }}
+    <li><a href="{% url 'family_detail' family.id %}"><span class="fa fa-users"></span> {{ family.name_text }}</a></li>
+    <li class="active"><span class="fa fa-child"></span> New Child</li>
+{% endblock %}
+
+{% block main %}
+
+    <form class="form-horizontal" method="POST" action="">
+
+    {%  crispy form %}
+    {%  crispy language_form language_helper %}
+
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit"><span class="fa fa-floppy-o"></span> Save</button>
+    </div>
+
+    </form>
+
+{% endblock %}
+
+{% block javascript %}
+
+           <script src="{{ STATIC_URL }}js/jquery.formset.js"></script>
+           <script type="text/javascript">
+           $(function() {
+               $('#language_table tbody tr').formset({
+                   prefix: '{{ language_form.prefix }}',
+                   deleteText: '<span class="fa fa-times"></span>',
+                   addText: '<button type="button" class="btn btn-default"><span class="fa fa-plus"></span> Add Language</button>'
+               });
+           })
+       </script>
+
+
+{% endblock %}

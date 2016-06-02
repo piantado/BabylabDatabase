@@ -1,0 +1,8 @@
+{% if record.parents %}
+    <ul class="list-unstyled">
+        {% for parent in record.parents.all %}
+            <li><a href="{% url 'parent_detail' parent.id %}">{{ parent }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+{% endif %}

@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+{% load django_tables2 %}
+
+{% block meta_title %}Family Detail{%  endblock %}
+
+{% block page_header_title%}Family{% endblock %}
+{% block page_header_description %}{{ family }}{% endblock %}
+
+{% block crumb %}
+    {{ block.super }}
+    <li class="active"><span class="fa fa-users"></span> {{ family.name_text }}</li>
+{% endblock %}
+
+{% block main %}
+
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#home" data-toggle="tab">Children <span class="badge">{{ child_table.page.paginator.count }}</span></a></li>
+      <li><a href="#parents" data-toggle="tab">Parents <span class="badge">{{ parent_table.page.paginator.count }}</span></a></li>
+      <li><a href="#address" data-toggle="tab">Address</a></li>
+      <li><a href="#contacts" data-toggle="tab">Contacts <span class="badge">{{ contact_table.page.paginator.count }}</span></a></li>
+      <li><a href="#appointments" data-toggle="tab">Appointments <span class="badge">{{ appointment_table.page.paginator.count }}</span></a></li>
+    </ul>
+
+    <!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="home">
+
+      {% render_table child_table %}
+
+      <a class="btn btn-primary" role="button" href="{% url 'child_add' family.id %}"><span class="fa fa-plus"></span> Add Child</a>
+
+  </div>
+  <div class="tab-pane" id="parents">
+
+      {% render_table parent_table %}
+
+        <a class="btn btn-primary" role="button" href="{% url 'parent_add' family.id %}"><span class="fa fa-plus"></span> Add Parent</a>
+
+  </div>
+  <div class="tab-pane" id="address">
+      <form class="form-horizontal">
+        {% crispy form %}
+      </form>
+
+      <a class="btn btn-primary" role="button" href="{% url 'address_update' family.id %}"><span class="fa fa-pencil"></span> Edit</a>
+
+  </div>
+  <div class="tab-pane" id="contacts">
+
+      {% render_table contact_table %}
+
+
+      {% if family.children %}
+
+          <ul class="list-unstyled">
+          {% for child in family.children.all %}
+
+          <li style="padding-bottom: 5px">
+          <a class="btn btn-primary" role="button" href="{% url 'contact_add' child.id %}"><span class="fa fa-plus"></span> Add Contact - {{ child }}</a>
+          </li>
+
+          {% endfor %}
+          </ul>
+
+      {% endif %}
+
+  </div>
+  <div class="tab-pane" id="appointments">
+
+      {% render_table appointment_table %}
+
+       {% if family.children %}
+
+           <ul class="list-unstyled">
+          {% for child in family.children.all %}
+
+          <li style="padding-bottom: 5px">
+          <a class="btn btn-primary" role="button" href="{% url 'appointment_add' child.id %}"><span class="fa fa-plus"></span> Add Appointment - {{ child }}</a>
+          </li>
+
+          {% endfor %}
+           </ul>
+
+      {% endif %}
+
+  </div>
+</div>
+
+    {% include "core/audit.html" %}
+
+
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ STATIC_URL }}js/jquery.dataTables.min.js"></script>
+    <script src="{{ STATIC_URL }}js/dataTables.tableTools.js"></script>
+    <script src="{{ STATIC_URL }}js/dataTables.bootstrap.js"></script>
+
+    <script src="{{ STATIC_URL }}js/dataTables.init.js"></script>
+    <script src="{{ STATIC_URL }}js/dataTables.init.tabs.js"></script>
+{% endblock %}

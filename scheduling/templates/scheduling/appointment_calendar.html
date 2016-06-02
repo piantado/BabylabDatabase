@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block meta_title %}Appointment Calendar{% endblock %}
+
+{% block page_header_title %}Appointments{% endblock %}
+{% block page_header_description %}Calendar View{% endblock %}
+
+{% block crumb %}
+    {{ block.super }}
+    <li><a href={% url 'appointment_list' %}><span class="fa fa-calendar"></span> Appointments</a></li>
+    <li class="active"><span class="fa fa-calendar"></span> Calendar</li>
+{% endblock %}
+
+
+{% block main %}
+
+    <div class="page-header">
+
+        <div class="pull-right form-inline">
+            <div class="btn-group">
+                <button class="btn btn-primary" data-calendar-nav="prev"><< Prev</button>
+                <button class="btn" data-calendar-nav="today">Today</button>
+                <button class="btn btn-primary" data-calendar-nav="next">Next >></button>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-warning" data-calendar-view="year">Year</button>
+                <button class="btn btn-warning active" data-calendar-view="month">Month</button>
+                <button class="btn btn-warning" data-calendar-view="week">Week</button>
+                <button class="btn btn-warning" data-calendar-view="day">Day</button>
+            </div>
+        </div>
+
+        <h3></h3>
+    </div>
+
+    <div class="row">
+        <div id="calendar"></div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Legend</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-success">Completed</li>
+                        <li class="list-group-item list-group-item-info">Rescheduled</li>
+                        <li class="list-group-item list-group-item-warning">No Show</li>
+                        <li class="list-group-item list-group-item-danger">Cancelled</li>
+                        <li class="list-group-item list-group-item disabled">Scheduled</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="events-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3>Appointment</h3>
+                </div>
+                <div class="modal-body" style="height: 400px">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" class="btn">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+
+{% block javascript %}
+
+    <script src="{{ STATIC_URL }}js/underscore-min.js"></script>
+    <script src="{{ STATIC_URL }}js/calendar.js"></script>
+    <script type="text/javascript">
+
+        var options = {
+            events_source: '/scheduling/api/?format=json',
+            view: 'month',
+            modal: "#events-modal",
+            tmpl_path: "{{ STATIC_URL }}tmpls/",
+            tmpl_cache: false,
+            onAfterViewLoad: function (view) {
+                $('.page-header h3').text(this.getTitle());
+                $('.btn-group button').removeClass('active');
+                $('button[data-calendar-view="' + view + '"]').addClass('active');
+            },
+            classes: {
+                months: {
+                    general: 'label'
+                }
+            }
+        };
+
+        var calendar = $('#calendar').calendar(options);
+
+        $('.btn-group button[data-calendar-nav]').each(function () {
+            var $this = $(this);
+            $this.click(function () {
+                calendar.navigate($this.data('calendar-nav'));
+            });
+        });
+
+        $('.btn-group button[data-calendar-view]').each(function () {
+            var $this = $(this);
+            $this.click(function () {
+                calendar.view($this.data('calendar-view'));
+            });
+        });
+
+    </script>
+
+
+{% endblock %}

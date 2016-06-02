@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% load django_tables2 %}
+
+{% block meta_title %}Session Not Taken List{% endblock %}
+
+{% block page_header_title %}Sessions{% endblock %}
+{% block page_header_description %}List of children without a session{% endblock %}
+
+{% block crumb %}
+    {{ block.super }}
+    <li><a href="{% url 'session_list_all' %}"><span class="fa fa-clock-o"></span> Sessions</a></li>
+    <li class="active"><span class="fa fa-clock-o"></span> {{ study }}</li>
+{% endblock %}
+
+{% block main %}
+
+    {#    <h3><span class="fa fa-check"></span> Completed <span class="badge">{{ session_table.page.paginator.count }}</span></h3>#}
+
+    <div class="row">
+
+        <div class="col-md-6">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Age (filter)</div>
+                <div class="panel-body">
+
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label for="min_age">Min Age</label>
+                            <input type="text" class="form-control" id="min_age" name="min_age">
+                        </div>
+                        <div class="form-group">
+                            <label for="max_age">Min Age</label>
+                            <input type="text" class="form-control" id="max_age" name="max_age">
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">English Heard (filter)</div>
+                <div class="panel-body">
+
+
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label for="min_eng">Min Eng</label>
+                            <input type="text" class="form-control" id="min_eng" name="min_eng">
+                        </div>
+                        <div class="form-group">
+                            <label for="max_eng">Min Eng</label>
+                            <input type="text" class="form-control" id="max_eng" name="max_eng">
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    {% render_table session_table "study/table_footer.html" %}
+
+
+    {#    <h3><span class="fa fa-ban"></span> Not Yet Completed <span class="badge">{{ no_session_table.page.paginator.count }}</span></h3>#}
+    {##}
+    {#    {% if no_session_table.page.paginator.count %}#}
+    {#        {% render_table no_session_table %}#}
+    {#    {% endif %}#}
+
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ STATIC_URL }}js/jquery.dataTables.min.js"></script>
+    <script src="{{ STATIC_URL }}js/dataTables.tableTools.js"></script>
+    <script src="{{ STATIC_URL }}js/dataTables.bootstrap.js"></script>
+
+    <script src="{{ STATIC_URL }}js/dataTables.init.search.js"></script>
+{% endblock %}

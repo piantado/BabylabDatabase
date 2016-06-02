@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block meta_title %}Study Detail{%  endblock %}
+
+{% block page_header_title%}Study{% endblock %}
+{% block page_header_description %}{{ study }}{% endblock %}
+
+{% block crumb %}
+    {{ block.super }}
+    <li><a href="{% url 'study_list' %}"><span class="fa fa-flask"></span> Studies</a></li>
+    <li class="active"><span class="fa fa-flask"></span> {{ study }}</li>
+{% endblock %}
+
+{% block main %}
+
+    {% crispy form %}
+
+{% endblock %}

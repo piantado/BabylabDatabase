@@ -1,0 +1,14 @@
+
+
+February 12th - Become familiar with Django, friendly step-by-step installation instructions starting from a fresh ubuntu install. Include information on how to back up everything--what files, etc. 
+
+March 4th - Incorporate changes to the database that are needed by the babylab. Install in babylab computer for test use. 
+
+March 18th - Big tutorial for babylab members/staff -- in a special lab meeting. Lab starts using new database. 
+
+March 25th - Incorporate any changes from the lab staff, post first release on github. 
+
+April 8th - Create wiki-style manual on installing and using the database. 
+
+(We have a few small colala projects after this)
+

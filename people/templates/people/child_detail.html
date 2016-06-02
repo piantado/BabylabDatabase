@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+{% load django_tables2 %}
+
+{% block meta_title %}Child Detail{% endblock %}
+
+{% block page_header_title %}Child{% endblock %}
+{% block page_header_description %}{{ child }}{% endblock %}
+
+{% block crumb %}
+    {{ block.super }}
+    <li><a href="{% url 'family_detail' family.id %}"><span class="fa fa-users"></span> {{ family.name_text }}</a></li>
+    <li class="active"><span class="fa fa-child"></span> {{ child }}</li>
+{% endblock %}
+
+{% block main %}
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+        <li><a href="#siblings" data-toggle="tab">Siblings <span
+                class="badge">{{ child_table.page.paginator.count }}</span></a></li>
+        <li><a href="#address" data-toggle="tab">Address</a></li>
+        <li><a href="#contacts" data-toggle="tab">Contacts <span
+                class="badge">{{ contact_table.page.paginator.count }}</span></a></li>
+        <li><a href="#appointments" data-toggle="tab">Appointments <span
+                class="badge">{{ appointment_table.page.paginator.count }}</span></a></li>
+        <li><a href="#sessions" data-toggle="tab">Sessions</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane active" id="home">
+
+            <form class="form-horizontal">
+                {% crispy form %}
+            </form>
+
+            <fieldset>
+                <legend>Languages Heard</legend>
+                {% render_table language_table %}
+            </fieldset>
+
+            <a class="btn btn-primary" role="button" href="{% url 'child_update' child.id %}"><span
+                    class="fa fa-pencil"></span> Edit</a>
+
+        </div>
+        <div class="tab-pane" id="siblings">
+            {% render_table child_table %}
+        </div>
+
+        <div class="tab-pane" id="address">
+            <form class="form-horizontal">
+                {% crispy address_form %}
+            </form>
+
+            <a class="btn btn-primary" role="button" href="{% url 'address_update' child.family.id %}"><span
+                    class="fa fa-pencil"></span> Edit</a>
+
+        </div>
+
+        <div class="tab-pane" id="contacts">
+
+            {% render_table contact_table %}
+
+            <a class="btn btn-primary" role="button" href="{% url 'contact_add' child.id %}"><span
+                    class="fa fa-plus"></span> Add Contact</a>
+
+        </div>
+
+        <div class="tab-pane" id="appointments">
+
+            {% render_table appointment_table %}
+
+            <a class="btn btn-primary" role="button" href="{% url 'appointment_add' child.id %}"><span
+                    class="fa fa-plus"></span> Add Appointment</a>
+
+        </div>
+
+        <div class="tab-pane" id="sessions">
+            {#            <h3><span class="fa fa-check"></span> Completed <span class="badge">{{ session_table.page.paginator.count }}</span></h3>#}
+
+            {% render_table session_table %}
+
+            {#            <h3><span class="fa fa-ban"></span> Not Yet Completed <span class="badge">{{ no_session_table.page.paginator.count }}</span></h3>#}
+            {##}
+            {#            {% if no_session_table.page.paginator.count %}#}
+            {#                {% render_table no_session_table %}#}
+            {#            {% endif %}#}
+
+
+        </div>
+
+    </div>
+
+    {% include "core/audit.html" %}
+
+
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ STATIC_URL }}js/jquery.dataTables.min.js"></script>
+    <script src="{{ STATIC_URL }}js/dataTables.tableTools.js"></script>
+    <script src="{{ STATIC_URL }}js/dataTables.bootstrap.js"></script>
+
+    <script src="{{ STATIC_URL }}js/dataTables.init.js"></script>
+    <script src="{{ STATIC_URL }}js/dataTables.init.tabs.js"></script>
+
+{% endblock %}

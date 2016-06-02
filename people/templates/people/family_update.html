@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block meta_title %}Family Update{%  endblock %}
+
+{% block page_header_title%}Family{% endblock %}
+{% block page_header_description %}{{ family }}{% endblock %}
+
+{% block crumb %}
+    {{ block.super }}
+    <li class="active"><span class="fa fa-users"></span> {{ family.name_text }}</li>
+{% endblock %}
+
+{% block main %}
+
+    <form method="POST" action="">
+
+    {% crispy form %}
+    {% crispy parent_form parent_helper %}
+    {% crispy child_form child_helper %}
+
+    <div class="form-actions">
+{#        <input type="submit" name="submit" value="Save" class="btn btn-primary" id="submit-save">#}
+        <button class="btn btn-primary" type="submit"><span class="fa fa-floppy-o"></span> Save</button>
+    </div>
+
+    </form>
+
+{% endblock %}
+
+{% block javascript %}
+
+           <script src="{{ STATIC_URL }}js/jquery.formset.js"></script>
+           <script type="text/javascript">
+           $(function() {
+               $('#parent_table tbody tr').formset({
+                   prefix: '{{ parent_form.prefix }}',
+                   deleteText: '<span class="glyphicon glyphicon-remove"></span>',
+                   addText: '<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add Parent</button>'
+               });
+               $('#child_table tbody tr').formset({
+                   prefix: '{{ child_form.prefix }}',
+                   deleteText: '<span class="glyphicon glyphicon-remove"></span>',
+                   addText: '<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add Child</button>'
+               });
+           })
+       </script>
+
+
+
+{% endblock %}

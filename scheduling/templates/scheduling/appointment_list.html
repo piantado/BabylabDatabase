@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% load django_tables2 %}
+
+{% block meta_title %}Appointment List{%  endblock %}
+
+{% block page_header_title%}Appointments{% endblock %}
+{% block page_header_description %}List of all appointments{% endblock %}
+
+{% block crumb %}
+    {{ block.super }}
+    <li class="active"><span class="fa fa-calendar"></span> Appointments</li>
+{% endblock %}
+
+{% block main %}
+
+    {% render_table table %}
+
+    <div class="alert alert-dismissable alert-info" data-alert="alert">
+        <button type="button" class="close" data-dismiss="alert"><span class="fa fa-times"></span></button>
+        <strong>Note:</strong> Appointments can be added by through the Child Form. Click the Children NavBar button at the top, then Open a Child Form. If you do not have any Children added yet, you can add them through the Family Form.
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ STATIC_URL }}js/jquery.dataTables.min.js"></script>
+    <script src="{{ STATIC_URL }}js/dataTables.tableTools.js"></script>
+    <script src="{{ STATIC_URL }}js/dataTables.bootstrap.js"></script>
+
+    <script src="{{ STATIC_URL }}js/dataTables.init.js"></script>
+{% endblock %}

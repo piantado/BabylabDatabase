@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block meta_title %}Parent Add{%  endblock %}
+
+{% block page_header_title%}Parent{% endblock %}
+{% block page_header_description %}New Parent{% endblock %}
+
+{% block crumb %}
+    {{ block.super }}
+    <li><a href="{% url 'family_detail' family.id %}"><span class="fa fa-users"></span> {{ family.name_text }}</a></li>
+    <li class="active"><span class="fa fa-female"></span> New Parent</li>
+{% endblock %}
+
+{% block main %}
+    {%  crispy form %}
+{% endblock %}

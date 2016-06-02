@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block meta_title %}Family Add{%  endblock %}
+
+{% block page_header_title%}Family{% endblock %}
+{% block page_header_description %}New Family{% endblock %}
+
+{% block crumb %}
+    {{ block.super }}
+    <li class="active"><span class="fa fa-users"></span> New Family</li>
+{% endblock %}
+
+{% block main %}
+
+    <form method="POST" action="">
+
+    {%  crispy form %}
+    {%  crispy parent_form parent_helper %}
+    {%  crispy child_form child_helper %}
+
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit"><span class="fa fa-floppy-o"></span> Save</button>
+    </div>
+
+    </form>
+
+{% endblock %}
+
+{% block javascript %}
+
+           <script src="{{ STATIC_URL }}js/jquery.formset.js"></script>
+           <script type="text/javascript">
+           $(function() {
+               $('#parent_table tbody tr').formset({
+                   prefix: '{{ parent_form.prefix }}',
+                   deleteText: '<span class="fa fa-times"></span>',
+                   addText: '<button type="button" class="btn btn-default"><span class="fa fa-plus"></span> Add Parent</button>'
+               });
+               $('#child_table tbody tr').formset({
+                   prefix: '{{ child_form.prefix }}',
+                   deleteText: '<span class="fa fa-times"></span>',
+                   addText: '<button type="button" class="btn btn-default"><span class="fa fa-plus"></span> Add Child</button>'
+               });
+           })
+       </script>
+
+
+{% endblock %}

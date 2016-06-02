@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block meta_title %}Login{%  endblock %}
+
+{% block breadcrumb %}{% endblock %}
+
+{% block main %}
+    {% if request.user.is_authenticated %}
+        <p>You're already logged in. If you'd like to log in as a different user, you'll need to log out first.</p>
+    {% else %}
+        {% crispy form %}
+    {% endif %}
+
+{% endblock %}

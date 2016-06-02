@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load django_tables2 %}
+
+{% block meta_title %}Session List{%  endblock %}
+
+{% block page_header_title%}Sessions{% endblock %}
+{% block page_header_description %}List of all sessions{% endblock %}
+
+{% block crumb %}
+    {{ block.super }}
+    <li><a href="{% url 'session_list_all' %}"><span class="fa fa-clock-o"></span> Sessions</a></li>
+    <li class="active"><span class="fa fa-clock-o"></span> {{ study }}</li>
+{% endblock %}
+
+{% block main %}
+
+{#    <h3><span class="fa fa-check"></span> Completed <span class="badge">{{ session_table.page.paginator.count }}</span></h3>#}
+
+    {% render_table session_table %}
+
+
+{#    <h3><span class="fa fa-ban"></span> Not Yet Completed <span class="badge">{{ no_session_table.page.paginator.count }}</span></h3>#}
+{##}
+{#    {% if no_session_table.page.paginator.count %}#}
+{#        {% render_table no_session_table %}#}
+{#    {% endif %}#}
+
+{% endblock %}
+
+
+{% block javascript %}
+    <script src="{{ STATIC_URL }}js/jquery.dataTables.min.js"></script>
+    <script src="{{ STATIC_URL }}js/dataTables.tableTools.js"></script>
+    <script src="{{ STATIC_URL }}js/dataTables.bootstrap.js"></script>
+
+    <script src="{{ STATIC_URL }}js/dataTables.init.js"></script>
+{% endblock %}

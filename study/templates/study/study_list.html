@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load django_tables2 %}
+
+{% block meta_title %}Study List{%  endblock %}
+
+{% block page_header_title%}Studies{% endblock %}
+{% block page_header_description %}List of all studies{% endblock %}
+
+{% block crumb %}
+    {{ block.super }}
+    <li class="active"><span class="fa fa-flask"></span> Studies</li>
+{% endblock %}
+
+{% block main %}
+
+    {% render_table table %}
+
+    <div class="alert alert-dismissable alert-info" data-alert="alert">
+        <button type="button" class="close" data-dismiss="alert"><span class="fa fa-times"></span></button>
+        <strong>Note:</strong> Studies can be added/edited through the Admin NavBar button at the top. The username/password is on <a href="http://kingbox.gotdns.org/trac/baby_lab/" target="_blank" class="alert-link">Trac</a>.
+    </div>
+
+
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ STATIC_URL }}js/jquery.dataTables.min.js"></script>
+    <script src="{{ STATIC_URL }}js/dataTables.tableTools.js"></script>
+    <script src="{{ STATIC_URL }}js/dataTables.bootstrap.js"></script>
+
+    <script src="{{ STATIC_URL }}js/dataTables.init.js"></script>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% if record.disability %}
+    <ul class="list-unstyled">
+        {% for disability in record.disability.all %}
+            <li>{{ disability.name }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+{% endif %}

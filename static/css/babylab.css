@@ -1,0 +1,44 @@
+body {
+  padding-top: 50px;
+
+}
+
+label {
+      font-weight: normal !important;
+}
+
+.requiredField {
+    font-weight: bold !important;
+}
+
+.breadcrumb {
+    font-size: 18px;
+}
+
+.table-striped th.asc:after {
+  content: '\0000a0\f0dd';
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+}
+
+.table-striped th.desc:after {
+  content: '\0000a0\f0de';
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+}
+
+@media (min-width: 768px) {
+  .input-group.date{ max-width: 220px;}
+  .input-group.time{ max-width: 220px;}
+    .datetime > .input-group {
+    float: left;
+    margin-right: 5px;
+  }
+}
+
+div.DTTT { margin-bottom: 0.5em; float: right; }
+div.dataTables_wrapper { clear: both; }

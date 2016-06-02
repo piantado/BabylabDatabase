@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block meta_title %}Appointment Detail{%  endblock %}
+
+{% block page_header_title%}Appointment{% endblock %}
+{% block page_header_description %}{{ appointment.appointment_datetime }}{% endblock %}
+
+{% block crumb %}
+    {{ block.super }}
+    <li><a href="{% url 'family_detail' family.id %}"><span class="fa fa-users"></span> {{ family.name_text }}</a></li>
+    <li><a href="{% url 'child_detail' child.id %}"><span class="fa fa-child"></span> {{ child }}</a></li>
+    <li class="active"><span class="fa fa-calendar"></span> {{ appointment.appointment_datetime }}</li>
+{% endblock %}
+
+{% block main %}
+
+    <form class="form-horizontal">
+        {% crispy form %}
+    </form>
+
+    <a class="btn btn-primary" role="button" href="{% url 'appointment_update' appointment.id %}"><span
+        class="fa fa-pencil"></span> Edit</a>
+
+    {% include "core/audit.html" %}
+
+{% endblock %}

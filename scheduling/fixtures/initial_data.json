@@ -1,0 +1,31 @@
+[
+        {
+        "pk": 1,
+        "model": "scheduling.room",
+        "fields": {
+            "name": "TBD"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "scheduling.room",
+        "fields": {
+            "name": "Bldg A - Room 101"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "scheduling.room",
+        "fields": {
+            "name": "Bldg A - Room 201"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "scheduling.room",
+        "fields": {
+            "name": "Bldg B - Room 101"
+        }
+    }
+
+]
