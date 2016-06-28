@@ -1,8 +1,8 @@
 # Django settings for babylab_project project.
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
+import os
 
-
-DEBUG = False
+DEBUG = False #set to true for development
 # TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -13,8 +13,8 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'babylab.db',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': '',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
@@ -78,6 +78,9 @@ MEDIA_ROOT = ''
 # Examples: "http://example.com/media/", "http://media.example.com/"
 MEDIA_URL = ''
 
+# Adding base directory
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
@@ -93,7 +96,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    '/home/patking/PycharmProjects/babylab/static/',
+    os.path.join(BASE_DIR, 'static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -107,12 +110,31 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '^b!rxr@p6_0)wu5y7ga6f772z=^!buqr5frxmu1(botmr)%8oi'
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
-)
+#new format for templates starting in Django 1.8
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            # insert your TEMPLATE_DIRS here
+            'templates'
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
+                # list if you haven't customized them:
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.request' #added for django_tables2
+            ],
+        },
+    },
+]
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -131,10 +153,7 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 ROOT_URLCONF = 'babylab_project.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'babylab_project.wsgi.application'
-
-import os
-TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), '..', 'templates').replace('\\','/'),)
+WSGI_APPLICATION = 'babylab_project.wsgi.application' 
 
 AUTH_USER_MODEL = 'core.MyUser'
 
@@ -142,9 +161,9 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 INSTALLED_APPS = (
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
@@ -163,8 +182,6 @@ INSTALLED_APPS = (
     # 'debug_toolbar',
     'rest_framework'
 )
-
-TEMPLATE_CONTEXT_PROCESSORS += ('django.core.context_processors.request',)
 
 INTERNAL_IPS = ("127.0.0.1",)
 

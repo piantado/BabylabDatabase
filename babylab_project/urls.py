@@ -5,7 +5,7 @@ from core.views import HomePageView, LoginForm, logout
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = [
     # Examples:
     # url(r'^$', 'babylab_project.views.home', name='home'),
     # url(r'^babylab_project/', include('babylab_project.foo.urls')),
@@ -21,4 +21,4 @@ urlpatterns = patterns('',
     url(r'^scheduling/', include('scheduling.urls')),
     url(r'^accounts/login/$', LoginForm.as_view(), name='login'),
     url(r'^accounts/logout/$', logout, name='logout'),
-)
+]

@@ -16,8 +16,8 @@ class OpenColumn(tables.columns.LinkColumn):
         super(OpenColumn, self).__init__(viewname, urlconf, args, kwargs, current_app, attrs, **extra)
         self.icon = icon
 
-    def render_link(self, uri, text, attrs=None):
-        super(OpenColumn, self).render_link(uri, text, attrs)
+    def render_link(self, uri, record, value, attrs=None):
+        super(OpenColumn, self).render_link(uri, record, value, attrs)
         attrs = AttributeDict(attrs if attrs is not None else
                               self.attrs.get('a', {}))
         attrs['href'] = uri
