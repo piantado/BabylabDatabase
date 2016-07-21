@@ -5,7 +5,7 @@ from localflavor.us.models import USStateField, PhoneNumberField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.exceptions import ValidationError
 
-from core.util import calc_age, calc_age_dec
+from core.util import calc_age, calc_age_dec, calc_age_months
 from scheduling.models import Contact, Appointment
 from study.models import Session, Study
 
@@ -63,7 +63,6 @@ BORN_EARLY_TYPE = (
     (0, u"Yes"),
     (1, u"No"),
 )
-
 
 class Family(BaseModel):
     """
@@ -224,6 +223,17 @@ class Child(BaseModel):
         else:
             return None
     age_dec = property(_get_child_age_dec)
+
+    def _get_child_age_months(self):
+        """
+        Returns the age of the child, in months
+        """
+        if self.dob_date:
+            return calc_age_months(self.dob_date)
+        else:
+            return None
+    age_in_months = property(_get_child_age_months)
+
 
     def _get_lang_eng_heard(self):
         """
