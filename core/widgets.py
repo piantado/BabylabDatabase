@@ -10,8 +10,9 @@ class CustomDateWidget(forms.DateInput):
         css = {'all': ('css/datepicker3.css',)}
         return forms.Media(js=js, css=css)
 
-    def __init__(self, attrs=None, format=None):
-        final_attrs = {'class': 'dateinput', 'placeholder': 'YYYY-MM-DD'}
+    def __init__(self, attrs=None, format=('%m-%d-%Y')):
+        #final_attrs = {'class': 'dateinput', 'placeholder': 'YYYY-MM-DD'}
+        final_attrs = {'class': 'dateinput', 'placeholder': 'MM-DD-YYYY'}
         if attrs is not None:
             final_attrs.update(attrs)
         super(CustomDateWidget, self).__init__(attrs=final_attrs, format=format)
@@ -30,7 +31,7 @@ class CustomTimeWidget(forms.TimeInput):
         css = {'all': ('css/bootstrap-timepicker.css',)}
         return forms.Media(js=js, css=css)
 
-    def __init__(self, attrs=None, format='%I:%M %p'):
+    def __init__(self, attrs=None, format=('%I:%M %p')):
         final_attrs = {'class': 'timeinput', 'placeholder': 'HH:MM AM/PM'}
         if attrs is not None:
             final_attrs.update(attrs)

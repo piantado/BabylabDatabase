@@ -1,6 +1,7 @@
 $('.input-group.date input.dateinput').each(function (e) {
     var dp = $(this).datepicker({
-        format: "yyyy-mm-dd",
+        //format: "yyyy-mm-dd",
+        format: "mm-dd-yyyy",
         language: 'en',
         todayBtn: "linked",
         autoclose: true

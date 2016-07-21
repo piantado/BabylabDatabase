@@ -42,11 +42,11 @@
 
   </div>
   <div class="tab-pane" id="address">
+
+      <div class="text-right"><br/><a class="btn btn-primary" role="button" href="{% url 'address_update' family.id %}"><span class="fa fa-pencil"></span> Edit</a></div>
       <form class="form-horizontal">
         {% crispy form %}
       </form>
-
-      <a class="btn btn-primary" role="button" href="{% url 'address_update' family.id %}"><span class="fa fa-pencil"></span> Edit</a>
 
   </div>
   <div class="tab-pane" id="contacts">

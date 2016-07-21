@@ -33,6 +33,9 @@
     <div class="tab-content">
         <div class="tab-pane active" id="home">
 
+            <div class="text-right"><br/><a class="btn btn-primary" role="button" href="{% url 'child_update' child.id %}"><span
+                class="fa fa-pencil"></span> Edit</a></div>
+
             <form class="form-horizontal">
                 {% crispy form %}
             </form>
@@ -42,21 +45,19 @@
                 {% render_table language_table %}
             </fieldset>
 
-            <a class="btn btn-primary" role="button" href="{% url 'child_update' child.id %}"><span
-                    class="fa fa-pencil"></span> Edit</a>
-
         </div>
         <div class="tab-pane" id="siblings">
             {% render_table child_table %}
         </div>
 
         <div class="tab-pane" id="address">
+
+            <div class="text-right"><br/><a class="btn btn-primary" role="button" href="{% url 'address_update' child.family.id %}"><span
+                    class="fa fa-pencil"></span> Edit</a></div>
+
             <form class="form-horizontal">
                 {% crispy address_form %}
             </form>
-
-            <a class="btn btn-primary" role="button" href="{% url 'address_update' child.family.id %}"><span
-                    class="fa fa-pencil"></span> Edit</a>
 
         </div>
 

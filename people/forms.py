@@ -103,6 +103,7 @@ class ParentFormSetHelper(FormHelper):
 class ChildForm(forms.ModelForm):
     child_id = forms.IntegerField(label='ID', required=False)
     age = forms.CharField(max_length=100, required=False)
+    dob_date = forms.DateField(label='Birth Day', input_formats = ['%m-%d-%Y'])
 
     class Meta:
         model = Child

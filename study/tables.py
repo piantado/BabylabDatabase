@@ -33,7 +33,8 @@ class NoSessionTable(BaseTable):
         model = Child
         order_by = ('name_last_text', 'name_first_text',)
         # order_by = ('child_fullname',)
-        fields = ('id', 'name_last_text', 'name_first_text', 'gender_type', 'dob_early', 'disability', 'age_dec', 'eng_heard')
+        #fields = ('id', 'name_last_text', 'name_first_text', 'gender_type', 'dob_early', 'disability', 'age_dec', 'eng_heard')
+        fields = ('id', 'name_last_text', 'name_first_text', 'gender_type', 'dob_early', 'disability', 'age_in_months', 'eng_heard')
 
     id = OpenColumn('child_detail', icon='child', kwargs={'pk': Accessor('id')}, attrs={'a': {'class': 'btn btn-primary btn-sm'}}, verbose_name='Action', orderable=False)
     disability = tables.columns.TemplateColumn(attrs={'th': {'class': 'text-search'}}, verbose_name='Disability', template_name='study/column_multi_disability.html', orderable=False)

@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.utils.translation import ugettext_lazy as _
 
+# adding English and Spanish at the top of the list (AY - 07.19.16)
+
 LANGUAGES = (
+    ("en", _(u"English")),
+    ("es", _(u"Spanish")),
     ("aa", _(u"Afar")),
     ("ab", _(u"Abkhazian")),
     ("ae", _(u"Avestan")),
@@ -39,9 +43,7 @@ LANGUAGES = (
     ("dz", _(u"Dzongkha")),
     ("ee", _(u"Ewe")),
     ("el", _(u"Modern Greek")),
-    ("en", _(u"English")),
     ("eo", _(u"Esperanto")),
-    ("es", _(u"Spanish")),
     ("et", _(u"Estonian")),
     ("eu", _(u"Basque")),
     ("fa", _(u"Persian")),

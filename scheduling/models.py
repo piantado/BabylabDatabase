@@ -85,8 +85,8 @@ class Appointment(BaseModel):
     appointment_datetime = models.DateTimeField('Appointment Date/Time')
     appointment_duration = models.IntegerField('Duration', help_text='(Minutes)')
     study = models.ForeignKey('study.Study', verbose_name='Study')
-    room = models.ForeignKey('Room', verbose_name='Room')
-    run_by = models.ForeignKey('core.MyUser', verbose_name='Run By')
+    room = models.ForeignKey('Room', verbose_name='Room', blank=True, null=True)
+    run_by = models.ForeignKey('core.MyUser', verbose_name='Run By', blank=True, null=True)
     status_type = models.SmallIntegerField('Status', choices=APPOINTMENT_STATUS_TYPE)
 
     reminder_made_type = models.SmallIntegerField('Reminder Made', choices=REMINDER_MADE_TYPE, blank=True, null=True)
@@ -120,7 +120,8 @@ class Appointment(BaseModel):
         ordering = ['appointment_datetime']
 
     def title_serialize(self):
-        return self.child.name_first_text + ' ' + self.child.name_last_text + ' ' + ' ' + self.room.name + ' ' + self.run_by.username + ' ' + self.study.name_text
+        #return self.child.name_first_text + ' ' + self.child.name_last_text + ' ' + ' ' + self.room.name + ' ' + self.run_by.username + ' ' + self.study.name_text
+        return self.child.name_first_text + ' ' + self.child.name_last_text + ' ' + self.study.name_text
 
     def url_serialize(self):
         return reverse('appointment_detail', kwargs={'pk': self.id})

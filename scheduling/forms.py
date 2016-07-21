@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from django import forms
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Field
@@ -9,6 +10,9 @@ from core.forms import SubmitCommonLayout
 
 
 class ContactForm(ModelForm):
+    contact_datetime = forms.SplitDateTimeField(input_date_formats = ['%m-%d-%Y'], input_time_formats = ['%I:%M %p'])
+    contact_datetime.label = 'Contact Date/Time'
+
 
     class Meta:
         model = Contact
@@ -36,6 +40,10 @@ class ContactForm(ModelForm):
 
 
 class AppointmentForm(ModelForm):
+    appointment_datetime = forms.SplitDateTimeField(input_date_formats = ['%m-%d-%Y'], input_time_formats = ['%I:%M %p'])
+    reminder_datetime = forms.SplitDateTimeField(input_date_formats = ['%m-%d-%Y'], input_time_formats = ['%I:%M %p'], required=False)
+    appointment_datetime.label = 'Appointment Date/Time'
+    reminder_datetime.label = 'Reminder Date/Time'
 
     class Meta:
         model = Appointment

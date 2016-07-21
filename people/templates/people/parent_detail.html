@@ -15,12 +15,12 @@
 
 {% block main %}
 
+    <div class="text-right"><a class="btn btn-primary" role="button" href="{% url 'parent_update' parent.id %}"><span
+            class="fa fa-pencil"></span> Edit</a></div>
+
     <form class="form-horizontal">
         {% crispy form %}
     </form>
-
-    <a class="btn btn-primary" role="button" href="{% url 'parent_update' parent.id %}"><span
-            class="fa fa-pencil"></span> Edit</a>
 
     {% include "core/audit.html" %}
 

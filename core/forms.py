@@ -12,8 +12,11 @@ from .widgets import CustomDateWidget, CustomSplitDateTimeWidget
 # This overrides all DateField and DateTimeField forms in this project
 # in order to use the custom widgets
 forms.DateField.widget = CustomDateWidget
-forms.DateTimeField.widget = CustomSplitDateTimeWidget
-forms.DateTimeField.input_formats = ('%Y-%m-%d %I:%M %p',)
+forms.SplitDateTimeField.widget = CustomSplitDateTimeWidget #changed this from DateTimeField? http://stackoverflow.com/questions/34332184/django-adminsplitdatetime-valid-date-time-error
+forms.SplitDateTimeField.input_date_formats = ['%m-%d-%Y']
+forms.SplitDateTimeField.input_time_formats = ['%I:%M %p']
+#forms.DateTimeField.input_formats = ('%Y-%m-%d %I:%M %p',)
+#forms.DateTimeField.input_formats = ['%m-%d-%Y %I:%M %p']
 
 
 class LoginCommonLayout(Layout):
@@ -71,3 +74,6 @@ class SubmitCommonLayout(Layout):
                 HTML('<button class="btn btn-primary" type="submit"><span class="fa fa-floppy-o"></span> Save</button>')
             )
         )
+
+#class SplitDateTimeForm(forms.Form):
+#    splitdatetime = CustomSplitDateTimeField()
