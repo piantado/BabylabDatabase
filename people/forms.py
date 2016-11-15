@@ -6,10 +6,9 @@ from crispy_forms.layout import Layout, Fieldset, Field
 from crispy_forms.bootstrap import UneditableField, PrependedText
 from localflavor.us.forms import USZipCodeField
 
-from core.forms import SubmitCommonLayout
+from core.forms import SubmitCommonLayout, SubmitAddressLayout
 
 from .models import Family, Parent, Child, Language
-
 
 class FamilyForm(forms.ModelForm):
     class Meta:
@@ -27,13 +26,25 @@ class FamilyForm(forms.ModelForm):
         )
         self.helper.form_tag = False
 
+    # def clean(self):
+    #     cleaned_data = super(FamilyForm, self).clean()
+
+    #     print "calling clean function from family"
+
+    #     # name_last_text = cleaned_data['name_last_text']
+
+    #     # if not name_last_text:
+    #     #     name_last_text = 'testing'
+
+    #     return cleaned_data
+
 
 class AddressForm(forms.ModelForm):
     zipcode = USZipCodeField(required=False)
 
     class Meta:
         model = Family
-        fields = ('address1', 'address2', 'city', 'state', 'zipcode', 'homephone', 'preferred_contact_type', 'notes')
+        fields = ('address1', 'address2', 'city', 'state', 'zipcode', 'homephone', 'preferred_contact_type', 'lab_reference', 'lab_reference_other', 'notes')
 
     def __init__(self, *args, **kwargs):
         super(AddressForm, self).__init__(*args, **kwargs)
@@ -51,6 +62,11 @@ class AddressForm(forms.ModelForm):
                 'zipcode',
                 'homephone',
                 'preferred_contact_type',
+            ),
+            Fieldset(
+                'Misc',
+                'lab_reference',
+                'lab_reference_other',
                 'notes'
             ),
             SubmitCommonLayout()
@@ -84,6 +100,16 @@ class ParentForm(forms.ModelForm):
         )
         self.helper.form_tag = True
 
+    def clean(self):
+        cleaned_data = super(ParentForm, self).clean()
+
+        print "calling clean function for parent"
+
+        if not cleaned_data['name_last_text']:
+            cleaned_data['name_last_text'] = cleaned_data['family']
+
+        return cleaned_data
+
 
 class ParentFormSetHelper(FormHelper):
     def __init__(self, *args, **kwargs):
@@ -108,7 +134,8 @@ class ChildForm(forms.ModelForm):
     class Meta:
         model = Child
         fields = ('name_first_text', 'name_last_text', 'gender_type', 'dob_date', 'babylab_id', 'kid_neurolab_id', 'ethnicity', 'race',
-                  'handedness', 'fmri', 'fmri_date', 'dob_early', 'disability', 'notes', 'family')
+                  'handedness', 'fmri', 'fmri_date', 'dob_early', 'disability', 'breastfed', 'breastfeeding_duration', 'bottle_fed',
+                  'notes', 'family')
 
     def __init__(self, *args, **kwargs):
         super(ChildForm, self).__init__(*args, **kwargs)
@@ -144,11 +171,24 @@ class ChildForm(forms.ModelForm):
             ),
             Fieldset(
                 'Misc',
+                'breastfed',
+                'breastfeeding_duration',
+                'bottle_fed',
                 'notes',
             ),
             SubmitCommonLayout()
         )
         self.helper.form_tag = True
+
+    def clean(self):
+        cleaned_data = super(ChildForm, self).clean()
+
+        print "calling clean function for child"
+
+        if not cleaned_data['name_last_text']:
+            cleaned_data['name_last_text'] = cleaned_data['family']
+
+        return cleaned_data
 
 
 class ChildFormSetHelper(FormHelper):

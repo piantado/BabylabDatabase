@@ -41,7 +41,7 @@ class FamilyDetailView(LoginRequiredMixin, CreatedMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(FamilyDetailView, self).get_context_data(**kwargs)
         form = AddressForm(instance=self.object)
-        form.helper.layout.pop(1)
+        form.helper.layout.pop(2)
         form.helper.form_tag = False
         form.helper.filter(basestring, max_level=1).wrap(UneditableField)
         context['form'] = form
@@ -79,7 +79,7 @@ class ChildDetailView(LoginRequiredMixin, CreatedMixin, DetailView):
         context['language_table'] = LanguageTable(self.object.languages.all(), prefix='6-')
         RequestConfig(self.request).configure(context['language_table'])
         address_form = AddressForm(instance=self.object.family)
-        address_form.helper.layout.pop(1)
+        address_form.helper.layout.pop(2)
         address_form.helper.filter(basestring, max_level=1).wrap(UneditableField)
         address_form.helper.form_tag = False
         context['address_form'] = address_form
@@ -130,6 +130,8 @@ class ParentCreateView(LoginRequiredMixin, CreateView):
     def get_initial(self):
         initial = super(ParentCreateView, self).get_initial()
         initial['family'] = self.kwargs.get(self.pk_url_kwarg, None)
+        if initial['family']:
+            initial['name_last_text'] = initial['family']['name_text']
         return initial
 
     def get_context_data(self, **kwargs):
@@ -245,8 +247,8 @@ class ChildUpdateView(LoginRequiredMixin, UpdateView):
         return context
 
 
-ParentFormSet = inlineformset_factory(Family, Parent, extra=2, can_delete=True, fields=('name_first_text', 'name_last_text', 'guardian_type',))
-ChildFormSet = inlineformset_factory(Family, Child, extra=2, can_delete=True, fields=('name_first_text', 'name_last_text', 'gender_type', 'dob_date',))
+ParentFormSet = inlineformset_factory(Family, Parent, extra=2, can_delete=True, fields=('name_first_text', 'name_last_text', 'guardian_type',))#, form=ParentForm)
+ChildFormSet = inlineformset_factory(Family, Child, extra=2, can_delete=True, fields=('name_first_text', 'name_last_text', 'gender_type', 'dob_date',))#, form=ChildForm)
 
 
 class FamilyCreateView(LoginRequiredMixin, CreateView):
@@ -273,6 +275,7 @@ class FamilyCreateView(LoginRequiredMixin, CreateView):
         child_form = ChildFormSet(request.POST)
         parent_helper = ParentFormSetHelper()
         child_helper = ChildFormSetHelper()
+
         if form.is_valid() and parent_form.is_valid() and child_form.is_valid():
             return self.form_valid(form, parent_form, child_form)
         else:
@@ -281,9 +284,35 @@ class FamilyCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form, parent_form, child_form):
         self.object = form.save()
         parent_form.instance = self.object
+
+        # print "parent form instance: "
+        # print parent_form.instance
+
+        # parent_instance = parent_form.save(commit=False)
+
+        # #set default for last name to family name if nothing is set
+        # for parent in parent_instance:
+        #     if not parent.name_last_text:
+        #         parent.name_last_text = 'testing'
+
         parent_form.save()
+
+        # print "parent instance: "
+        # print parent_instance
+
+        # parent_instance.save()
+
         child_form.instance = self.object
+        # child_instance = child_form.save(commit=False)
+
+        # #set default for last name to family name if nothing is set
+        # for child in child_instance:
+        #     if not child.name_last_text:
+        #         child.name_last_text = 'testing2'
+
         child_form.save()
+        #child_instance.save()
+
         return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self, form, parent_form, child_form, parent_helper, child_helper):
