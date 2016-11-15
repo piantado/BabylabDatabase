@@ -16,10 +16,12 @@
 
     {% render_table table %}
 
-    <div class="alert alert-dismissable alert-info" data-alert="alert">
+    <a class="btn btn-primary" role="button" href="{% url 'study_add' %}"><span class="fa fa-plus"></span> Add Study</a>
+
+    <!--<div class="alert alert-dismissable alert-info" data-alert="alert">
         <button type="button" class="close" data-dismiss="alert"><span class="fa fa-times"></span></button>
         <strong>Note:</strong> Studies can be added/edited through the Admin NavBar button at the top. The username/password is on <a href="http://kingbox.gotdns.org/trac/baby_lab/" target="_blank" class="alert-link">Trac</a>.
-    </div>
+    </div>-->
 
 
 {% endblock %}

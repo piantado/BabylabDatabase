@@ -1,9 +1,11 @@
 from django.conf.urls import url, patterns
 
-from .views import StudyListView, StudyDetailView, SessionCreateView, SessionDetailView, SessionUpdateView, SessionListView, SessionNoListView, SessionListAllView
+from .views import StudyListView, StudyDetailView, StudyCreateView, StudyUpdateView, SessionCreateView, SessionDetailView, SessionUpdateView, SessionListView, SessionNoListView, SessionListAllView
 urlpatterns = [
 	url(r'^study/$', StudyListView.as_view(), name='study_list'),
     url(r'^study/(?P<pk>\d+)/$', StudyDetailView.as_view(), name='study_detail'),
+    url(r'^study/add/$', StudyCreateView.as_view(), name='study_add'),
+    url(r'^study/update/(?P<pk>\d+)/$', StudyUpdateView.as_view(), name='study_update'),
     url(r'^session/$', SessionListAllView.as_view(), name='session_list_all'),
     url(r'^session/list/(?P<pk>\d+)/$', SessionListView.as_view(), name='session_list'),
     url(r'^session/nolist/(?P<pk>\d+)/$', SessionNoListView.as_view(), name='session_no_list'),

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block meta_title %}Study Add{%  endblock %}
+
+{% block page_header_title%}Study{% endblock %}
+{% block page_header_description %}New Study{% endblock %}
+
+{% block crumb %}
+    {{ block.super }}
+    <li class="active"><span class="fa fa-flask"></span> New Study</li>
+{% endblock %}
+
+{% block main %}
+
+    {%  crispy form %}
+
+{% endblock %}

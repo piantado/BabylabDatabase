@@ -59,6 +59,18 @@ $(document).ready(function () {
             table.api().draw();
         } );
 
+        // Event listener for born early parameter for filtering to redraw on input
+        $('#premature_ok').change( function() {
+            table.api().draw();
+        } );
+
+        // Event listeners for disabilities parameters for filtering to redraw on input
+        for (var curDisability = 0; curDisability < numDisabilities; curDisability++) {
+            $('#' + disabilityHTMLNames[curDisability]).change( function() {
+                table.api().draw();
+            } );
+        } 
+
 
 
 
@@ -115,6 +127,7 @@ $(document).ready(function () {
 
 });
 
+
 $.fn.dataTable.ext.search.push(
     function( settings, data, dataIndex ) {
         var min = parseFloat( $('#min_age').val());
@@ -146,6 +159,59 @@ $.fn.dataTable.ext.search.push(
             return true;
         }
         return false;
+    }
+);
+
+$.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+        var prematureOK = $('#premature_ok').is(':checked');
+        var bornEarly = data[4] || ''; // use data for the premature column
+
+        if (prematureOK) {
+            return true;
+        }
+        else {
+            if (bornEarly == 'No' || bornEarly == '') {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    }
+);
+
+/*for (var curDisability = 0; curDisability < numDisabilities; curDisability++) {
+    $.fn.dataTable.ext.search.push(
+        function( settings, data, dataIndex ) {
+            var disabilityOK = $('#' + disabilityNames[curDisability]).is(':checked');
+            var disabilityColumn = data[5] || ''; // use data for the disability column
+
+            console.log(disabilityOK);
+            if (disabilityOK) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    );
+}*/
+
+$.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+
+        var disabilityColumn = data[5] || ''; // use data for the disability column
+
+        for (var i = 0; i < numDisabilities; i++) {
+            if (!($('#' + disabilityHTMLNames[i]).is(':checked')) &&
+                disabilityColumn.indexOf(disabilityNames[i]) != -1) {
+                return false;
+            }
+        }
+
+        return true;
+
     }
 );
 

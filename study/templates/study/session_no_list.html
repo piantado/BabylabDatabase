@@ -27,41 +27,75 @@
 
                     <form class="form-inline">
                         <div class="form-group">
-                            <label for="min_age">Min Age</label>
-                            <input type="text" size="10" class="form-control" id="min_age" name="min_age">
+                            <label for="min_age">Min Age:</label>
+                            <input type="text" size="10" class="form-control" id="min_age" name="min_age" value="{{ study.age_min }}" >
                         </div>
                         <div class="form-group">
-                            <label for="max_age">Max Age</label>
-                            <input type="text" size="10" class="form-control" id="max_age" name="max_age">
+                            <label for="max_age">Max Age:</label>
+                            <input type="text" size="10" class="form-control" id="max_age" name="max_age" value="{{ study.age_max }}" >
                         </div>
                     </form>
 
                 </div>
             </div>
 
-        </div>
-
-        <div class="col-md-6">
-
-            <div class="panel panel-default">
+             <div class="panel panel-default">
                 <div class="panel-heading">Percent English Heard (filter)</div>
                 <div class="panel-body">
 
 
                     <form class="form-inline">
                         <div class="form-group">
-                            <label for="min_eng">Min English</label>
-                            <input type="text" size=10 class="form-control" id="min_eng" name="min_eng">
+                            <label for="min_eng">Min English:</label>
+                            <input type="text" size=10 class="form-control" id="min_eng" name="min_eng" value= "{{ study.percent_english_heard }}">
                         </div>
                         <div class="form-group">
-                            <label for="max_eng">Max English</label>
+                            <label for="max_eng">Max English:</label>
                             <input type="text" size=10 class="form-control" id="max_eng" name="max_eng">
                         </div>
                     </form>
 
                 </div>
             </div>
+
         </div>
+
+        <!--<div class="col-md-6">
+
+           
+        </div>-->
+
+        <div class="col-md-6">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Other (filter)</div>
+                <div class="panel-body">
+
+                        <div class="form-group">
+                             <input type="checkbox" id="premature_ok" name="premature_ok" value="premature_ok"
+                            {% if study.born_early %} checked="checked" {% endif %} > Allow premature births
+                        </div>
+
+                        <div class="form-group">
+                            <strong>Allowed disabilities:</strong><br/>
+                            <!--{% for disability in study.allowed_disabilities.all %}
+                            {{ disability.name }}</li>
+                            <input type="checkbox" id= {{ disability.htmlname }} name="{{ disability.htmlname }}" value="{{ disability.htmlname }}" checked="checked" >
+                            {% endfor %}-->
+
+                            {% for disability in all_disabilities %}
+                                <input type="checkbox" id= {{ disability.htmlname }} name="{{ disability.htmlname }}" value="{{ disability.htmlname }}" 
+                                {% if disability in study.allowed_disabilities.all %} checked="checked" {% endif %} > 
+                                {{ disability.name }}
+                                <br/>
+                            {% endfor %}
+                            
+                        </div>
+
+                </div>
+            </div>
+        </div>
+
 
 
     </div>
@@ -81,6 +115,19 @@
     <script src="{{ STATIC_URL }}js/jquery.dataTables.min.js"></script>
     <script src="{{ STATIC_URL }}js/dataTables.tableTools.js"></script>
     <script src="{{ STATIC_URL }}js/dataTables.bootstrap.js"></script>
+
+    <script>
+        var numDisabilities = 0;
+        var disabilityNames = [];
+        var disabilityHTMLNames = [];
+
+        {% for disability in all_disabilities %}
+            numDisabilities++;
+            disabilityNames.push('{{disability.name}}');
+            disabilityHTMLNames.push('{{disability.htmlname}}');
+        {% endfor %}
+
+    </script>
 
     <script src="{{ STATIC_URL }}js/dataTables.init.search.js"></script>
 {% endblock %}

@@ -10,7 +10,8 @@ from core.forms import SubmitCommonLayout
 class StudyForm(ModelForm):
     class Meta:
         model = Study
-        fields = ('name_text', 'description', 'start_date', 'end_date', 'pi', 'age_min', 'age_max', 'percent_english_heard', 'hearing_vision_impaired', 'born_early', 'qualifications')
+        fields = ('name_text', 'description', 'start_date', 'end_date', 'pi', 'age_min', 'age_max', 
+            'percent_english_heard', 'allowed_disabilities', 'born_early', 'qualifications')
 
     def __init__(self, *args, **kwargs):
         super(StudyForm, self).__init__(*args, **kwargs)
@@ -32,10 +33,12 @@ class StudyForm(ModelForm):
                 'age_min',
                 'age_max',
                 'percent_english_heard',
-                'hearing_vision_impaired',
+                'allowed_disabilities',
+                #'hearing_vision_impaired',
                 'born_early',
                 'qualifications'
-            )
+            ),
+            SubmitCommonLayout()
         )
         self.helper.form_tag = True
 

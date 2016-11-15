@@ -5,16 +5,21 @@
 {% block meta_title %}Study Detail{%  endblock %}
 
 {% block page_header_title%}Study{% endblock %}
-{% block page_header_description %}{{ study }}{% endblock %}
+{% block page_header_description %}{{ study.name_text }}{% endblock %}
 
 {% block crumb %}
     {{ block.super }}
-    <li><a href="{% url 'study_list' %}"><span class="fa fa-flask"></span> Studies</a></li>
-    <li class="active"><span class="fa fa-flask"></span> {{ study }}</li>
+    <li class="active"><span class="fa fa-flask"></span> {{ study.name_text }}</li>
 {% endblock %}
 
 {% block main %}
 
-    {% crispy form %}
+    <div class="text-right"><a class="btn btn-primary" role="button" href="{% url 'study_update' study.id %}"><span class="fa fa-pencil"></span> Edit</a></div>
+
+    <form class="form-horizontal">
+        {% crispy form %}
+    </form>
+
+    {% include "core/audit.html" %}
 
 {% endblock %}
