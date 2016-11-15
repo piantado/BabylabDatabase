@@ -29,7 +29,6 @@ class RocPhoneNumberField(PhoneNumberField):
 
     def deconstruct(self):
         name, path, args, kwargs = super(RocPhoneNumberField, self).deconstruct()
-        #del kwargs['max_length']
         return name, path, args, kwargs
 
     def formfield(self, **kwargs):

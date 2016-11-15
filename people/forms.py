@@ -26,18 +26,6 @@ class FamilyForm(forms.ModelForm):
         )
         self.helper.form_tag = False
 
-    # def clean(self):
-    #     cleaned_data = super(FamilyForm, self).clean()
-
-    #     print "calling clean function from family"
-
-    #     # name_last_text = cleaned_data['name_last_text']
-
-    #     # if not name_last_text:
-    #     #     name_last_text = 'testing'
-
-    #     return cleaned_data
-
 
 class AddressForm(forms.ModelForm):
     zipcode = USZipCodeField(required=False)

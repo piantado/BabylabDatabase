@@ -285,33 +285,12 @@ class FamilyCreateView(LoginRequiredMixin, CreateView):
         self.object = form.save()
         parent_form.instance = self.object
 
-        # print "parent form instance: "
-        # print parent_form.instance
-
-        # parent_instance = parent_form.save(commit=False)
-
-        # #set default for last name to family name if nothing is set
-        # for parent in parent_instance:
-        #     if not parent.name_last_text:
-        #         parent.name_last_text = 'testing'
-
         parent_form.save()
 
-        # print "parent instance: "
-        # print parent_instance
-
-        # parent_instance.save()
-
         child_form.instance = self.object
-        # child_instance = child_form.save(commit=False)
-
-        # #set default for last name to family name if nothing is set
-        # for child in child_instance:
-        #     if not child.name_last_text:
-        #         child.name_last_text = 'testing2'
 
         child_form.save()
-        #child_instance.save()
+
 
         return HttpResponseRedirect(self.get_success_url())
 

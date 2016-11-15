@@ -60,11 +60,6 @@
 
         </div>
 
-        <!--<div class="col-md-6">
-
-           
-        </div>-->
-
         <div class="col-md-6">
 
             <div class="panel panel-default">
@@ -78,10 +73,6 @@
 
                         <div class="form-group">
                             <strong>Allowed disabilities:</strong><br/>
-                            <!--{% for disability in study.allowed_disabilities.all %}
-                            {{ disability.name }}</li>
-                            <input type="checkbox" id= {{ disability.htmlname }} name="{{ disability.htmlname }}" value="{{ disability.htmlname }}" checked="checked" >
-                            {% endfor %}-->
 
                             {% for disability in all_disabilities %}
                                 <input type="checkbox" id= {{ disability.htmlname }} name="{{ disability.htmlname }}" value="{{ disability.htmlname }}" 
@@ -116,6 +107,7 @@
     <script src="{{ STATIC_URL }}js/dataTables.tableTools.js"></script>
     <script src="{{ STATIC_URL }}js/dataTables.bootstrap.js"></script>
 
+    <!-- hacky way to pass django variables over to the js code to have dynamic filtering features for disability options -->
     <script>
         var numDisabilities = 0;
         var disabilityNames = [];

@@ -26,8 +26,6 @@ forms.SplitDateTimeField.widget = CustomSplitDateTimeWidget #changed this from D
 forms.SplitDateTimeField.input_date_formats = ['%m-%d-%Y']
 forms.SplitDateTimeField.input_time_formats = ['%I:%M %p']
 forms.DateField.input_formats = ['%m-%d-%Y']
-#forms.DateTimeField.input_formats = ('%Y-%m-%d %I:%M %p',)
-#forms.DateTimeField.input_formats = ['%m-%d-%Y %I:%M %p']
 
 
 class LoginCommonLayout(Layout):
