@@ -39,6 +39,7 @@ APPOINTMENT_STATUS_TYPE = (
     (2, u"No Show"),
     (3, u"Cancelled"),
     (4, u"Scheduled"),
+    (5, u"Tentative"),
 )
 
 YES_NO_TYPE = (
@@ -130,8 +131,9 @@ class Appointment(BaseModel):
         status = {0: 'event-success',
           1: 'event-info',
           2: 'event-warning',
-          3: 'event-danger',
+          3: 'event-important',
           4: '',
+          5: 'event-inverse',
                   }
         return status[self.status_type]
 
