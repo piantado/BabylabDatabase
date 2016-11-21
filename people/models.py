@@ -14,7 +14,7 @@ from core.fields import LanguageField, RocPhoneNumberField
 
 from django.utils.translation import ugettext_lazy as _
 
-PARENT_TYPE = (
+GUARDIAN_TYPE = (
     (0, u"Father"),
     (1, u"Mother"),
     (2, u"Guardian"),
@@ -159,7 +159,7 @@ class Parent(BaseModel):
     """
     name_first_text = models.CharField('First Name', max_length=100)
     name_last_text = models.CharField('Last Name', max_length=100, blank=True)
-    guardian_type = models.ForeignKey('Guardian')
+    guardian_type = models.SmallIntegerField('Guardian Type', choices=GUARDIAN_TYPE)
 
     workphone = RocPhoneNumberField('Work Phone', blank=True)
     cellphone = RocPhoneNumberField('Cell Phone', blank=True)

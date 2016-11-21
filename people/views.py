@@ -130,8 +130,6 @@ class ParentCreateView(LoginRequiredMixin, CreateView):
     def get_initial(self):
         initial = super(ParentCreateView, self).get_initial()
         initial['family'] = self.kwargs.get(self.pk_url_kwarg, None)
-        if initial['family']:
-            initial['name_last_text'] = initial['family']['name_text']
         return initial
 
     def get_context_data(self, **kwargs):
