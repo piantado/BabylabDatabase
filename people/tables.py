@@ -9,7 +9,7 @@ class ChildTable(BaseTable):
     class Meta(BaseTable.Meta):
         model = Child
         order_by = ('family', 'name_first_text',)
-        fields = ('id', 'name_first_text', 'name_last_text', 'family', 'gender_type', 'dob_date', 'age', 'nickname', )
+        fields = ('id', 'name_first_text', 'name_last_text', 'family', 'gender_type', 'dob_date', 'age', )
 
     id = OpenColumn('child_detail', icon='child', kwargs={'pk': Accessor('pk')}, attrs={'a': {'class': 'btn btn-primary btn-sm'}}, verbose_name='Action', orderable=False)
 

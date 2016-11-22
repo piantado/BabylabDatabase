@@ -91,8 +91,6 @@ class ParentForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super(ParentForm, self).clean()
 
-        print "calling clean function for parent"
-
         if not cleaned_data['name_last_text']:
             cleaned_data['name_last_text'] = cleaned_data['family']
 
@@ -117,7 +115,7 @@ class ParentFormSetHelper(FormHelper):
 class ChildForm(forms.ModelForm):
     child_id = forms.IntegerField(label='ID', required=False)
     age = forms.CharField(max_length=100, required=False)
-    dob_date = forms.DateField(label='Birth Day', input_formats = ['%m-%d-%Y'])
+    dob_date = forms.DateField(label='Birth Date', input_formats = ['%m-%d-%Y'])
 
     class Meta:
         model = Child
@@ -170,8 +168,6 @@ class ChildForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(ChildForm, self).clean()
-
-        print "calling clean function for child"
 
         if not cleaned_data['name_last_text']:
             cleaned_data['name_last_text'] = cleaned_data['family']

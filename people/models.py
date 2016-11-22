@@ -193,7 +193,7 @@ class Child(BaseModel):
     name_first_text = models.CharField('First Name', max_length=100)
     name_last_text = models.CharField('Last Name', max_length=100, blank=True)
     gender_type = models.SmallIntegerField('Gender', choices=GENDER_TYPE)
-    dob_date = models.DateField('Birth Day')
+    dob_date = models.DateField('Birth Date')
     ethnicity = models.SmallIntegerField('Ethnicity', choices=ETHNICITY_TYPE, blank=True, null=True)
     race = models.SmallIntegerField('Race', choices=RACE_TYPE, blank=True, null=True)
 

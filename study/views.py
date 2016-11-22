@@ -174,5 +174,5 @@ class SessionNoListView(LoginRequiredMixin, ListView):
         context['session_table'] = NoSessionTable(Study.session_not_taken(self.study), prefix='1-')
         RequestConfig(self.request).configure(context['session_table'])
         context['study'] = self.study
-        context['all_disabilities'] = Disability.objects.all()[1:] 
+        context['all_disabilities'] = Disability.objects.all()
         return context

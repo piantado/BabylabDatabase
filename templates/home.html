@@ -2,7 +2,7 @@
 
 {% block meta_title %}Home{%  endblock %}
 
-{% block page_header_title%}BabyLab Database Site{% endblock %}
+{% block page_header_title%}Rochester Baby Lab Database Site{% endblock %}
 {% block page_header_description %}Version 1.0{% endblock %}
 
 {% block breadcrumb %}{% endblock %}
@@ -14,50 +14,50 @@
   <p>Please use the navigation buttons at the top.</p>
 </div>
 
-<h1 class="page-header">Instructions: <small>Work in progress...</small></h1>
+<h1 class="page-header">Instructions:</h1>
 
 
 
 <ul class="list-group">
   <li class="list-group-item">
     <h4 class="list-group-item-heading"><span class="fa fa-users"></span> Families</h4>
-    <p class="list-group-item-text">A family unit is the first item you need to add.  When initially adding the Family, you can also add Parents or Children, but they are both optional.  The family contains the mailing address and home phone number for all the parents and children in the family unit.  You can add as many Children and Parents to the Family as you like.</p>
+    <p class="list-group-item-text">A family unit is the first item you need to add. When initially adding the Family, you can also add Parents or Children, but they are both optional. The family contains the mailing address and home phone number for all the parents and children in the family unit. You can add as many Children and Parents to the Family as you like. It also includes information about how they heard about the lab.</p>
     <br>
     <a class="btn btn-primary" href="{% url 'family_list' %}"><span class="fa fa-users"></span> Go</a>
   </li>
   <li class="list-group-item">
     <h4 class="list-group-item-heading"><span class="fa fa-female"></span> Parents</h4>
-    <p class="list-group-item-text">The Parent has 3 required fields of First Name, Last Name, and Guardian Type (in the forms, if a Field is in <strong>Bold</strong>, that means it is required.  The Parent also has a Work Phone, Cell Phone, and Email field.</p>
+    <p class="list-group-item-text">The Parent has 2 required fields of First Name and Guardian Type (in the forms, if a Field is in <strong>Bold</strong>, that means it is required.  The Parent also has a Last Name, Work Phone, Cell Phone, and Email field.</p>
     <br>
     <a class="btn btn-primary" href="{% url 'parent_list' %}"><span class="fa fa-female"></span> Go</a>
   </li>
   <li class="list-group-item">
     <h4 class="list-group-item-heading"><span class="fa fa-child"></span> Children</h4>
-    <p class="list-group-item-text">Children also have a First and Last Name, Gender, and Birth Day (a date field).  Their Age is calculated automatically.  When viewing a Child form, you can also see any Siblings that they may have in the Siblings tab, and their Family Address information.  You make Contacts and Appointments off of the Child form by going to the Contacts and Appointments tab for a specific Child.</p>
+    <p class="list-group-item-text">Children also have a First Name, Gender, and Birth Date (a date field).  Their Age is calculated automatically. Other demographics and medical information are also optional fields.  When viewing a Child form, you can also see any Siblings that they may have in the Siblings tab, and their Family Address information.  You make Contacts and Appointments off of the Child form by going to the Contacts and Appointments tab for a specific Child.</p>
       <br>
     <a class="btn btn-primary" href="{% url 'child_list' %}"><span class="fa fa-child"></span> Go</a>
   </li>
   <li class="list-group-item">
     <h4 class="list-group-item-heading"><span class="fa fa-phone"></span> Contacts</h4>
-    <p class="list-group-item-text">The below button (and NavBar button at the top) for Contacts will show all Contacts made.  If you go to the Family form, the Contacts you see there will be Contacts made to that family.  If you go to a Child's Form, you will see the Contacts made to just that Child.  Contacts are added/made by going to the Child form.</p>
+    <p class="list-group-item-text">Contacts will show all Contacts made for a Family/Child.  If you go to the Family form, the Contacts you see there will be Contacts made to that family.  If you go to a Child's Form, you will see the Contacts made to just that Child.  Contacts are added/made by going to the Child form.</p>
       <br>
     <a class="btn btn-primary" href="{% url 'contact_list' %}"><span class="fa fa-phone"></span> Go</a>
   </li>
   <li class="list-group-item">
     <h4 class="list-group-item-heading"><span class="fa fa-calendar"></span> Appointments</h4>
-    <p class="list-group-item-text">Appointments are very similar to Contacts; see above!</p>
+    <p class="list-group-item-text">Like Contacts, Appointments can be made via the Family or Child forms. Upcoming Appointments can be viewed via a calendar or a list.</p>
       <br>
     <a class="btn btn-primary" href="{% url 'appointment_list' %}"><span class="fa fa-calendar"></span> Go</a>
   </li>
       <li class="list-group-item">
     <h4 class="list-group-item-heading"><span class="fa fa-clock-o"></span> Sessions</h4>
-    <p class="list-group-item-text">Sessions are a completed study with a single child. From sessions, you can also search for children who have not participated in a given study.</p>
+    <p class="list-group-item-text">Sessions are a completed study with a single child. From sessions, you can also search for children who have not participated in a given study. The results are initially filtered based on participant qualifications for the study.</p>
       <br>
     <a class="btn btn-primary" href="{% url 'session_list_all' %}"><span class="fa fa-clock-o"></span> Go</a>
   </li>
   <li class="list-group-item">
     <h4 class="list-group-item-heading"><span class="fa fa-flask"></span> Studies</h4>
-    <p class="list-group-item-text">Studies are currently added through the Admin interface (final NavBar button).</p>
+    <p class="list-group-item-text">Studies are the descriptions of the studies in the lab. In the Study form, you can specify who is in charge of the study and qualifications for potential participants.</p>
       <br>
     <a class="btn btn-primary" href="{% url 'study_list' %}"><span class="fa fa-flask"></span> Go</a>
   </li>

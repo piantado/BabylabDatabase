@@ -281,14 +281,25 @@ class FamilyCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form, parent_form, child_form):
         self.object = form.save()
-        parent_form.instance = self.object
 
-        parent_form.save()
+        parent_form.instance = self.object
+        #if no last name is filled in for parent, default to family name
+        parent_obj = parent_form.save(commit=False)
+
+        for parent in parent_obj:
+            if not parent.name_last_text:
+                parent.name_last_text = form.cleaned_data['name_text']
+            parent.save()
+        
 
         child_form.instance = self.object
+        #if no last name is filled in for child, default to family name
+        child_obj = child_form.save(commit=False)
 
-        child_form.save()
-
+        for child in child_obj:
+            if not child.name_last_text:
+                child.name_last_text = form.cleaned_data['name_text']
+            child.save()
 
         return HttpResponseRedirect(self.get_success_url())
 
