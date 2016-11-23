@@ -1,6 +1,7 @@
 from django.forms import ModelForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Field
+from django.forms.widgets import CheckboxSelectMultiple
 
 from .models import Study, Session
 
@@ -12,9 +13,13 @@ class StudyForm(ModelForm):
         model = Study
         fields = ('name_text', 'description', 'start_date', 'end_date', 'pi', 'age_min', 'age_max', 
             'percent_english_heard', 'allowed_disabilities', 'born_early', 'qualifications')
+        #widgets = {
+        #    'allowed_disabilities': CheckboxSelectMultiple(),
+        #}
 
     def __init__(self, *args, **kwargs):
         super(StudyForm, self).__init__(*args, **kwargs)
+
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-lg-2'
@@ -34,12 +39,12 @@ class StudyForm(ModelForm):
                 'age_max',
                 'percent_english_heard',
                 'allowed_disabilities',
-                #'hearing_vision_impaired',
                 'born_early',
                 'qualifications'
             ),
             SubmitCommonLayout()
         )
+
         self.helper.form_tag = True
 
 

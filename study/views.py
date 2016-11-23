@@ -32,8 +32,9 @@ class StudyDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(StudyDetailView, self).get_context_data(**kwargs)
         form = StudyForm(instance=self.object)
-        # form.helper.layout.pop(1)
+        form.helper.layout.pop(2)
         form.helper.filter(basestring, max_level=1).wrap(UneditableField)
+        #form.helper.filter(basestring).wrap(UneditableField)
         # form.helper.form_tag = False
         context['form'] = form
         return context
@@ -54,7 +55,6 @@ class StudyCreateView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super(StudyCreateView, self).get_context_data(**kwargs)
         context['media'] = StudyForm().media
-        print "got context data"
         return context
 
     def post(self, request, *args, **kwargs):
