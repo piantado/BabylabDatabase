@@ -16,7 +16,7 @@ class Study(BaseModel):
     born_early = models.BooleanField('Allow Premature Births', default=False)
     qualifications = models.TextField('Qualifications', blank=True)
 
-    pi = models.ForeignKey('core.MyUser', verbose_name='PI')
+    pi = models.ForeignKey('core.MyUser', models.CASCADE, verbose_name='PI')
 
     def __init__(self, *args, **kwargs):
         super(Study, self).__init__(*args, **kwargs)
@@ -60,11 +60,11 @@ class Study(BaseModel):
 
 
 class Session(BaseModel):
-    study = models.ForeignKey('Study', related_name='sessions', verbose_name='Study')
+    study = models.ForeignKey('Study', models.CASCADE, related_name='sessions', verbose_name='Study')
     session_date = models.DateField('Session Date')
-    staff = models.ForeignKey('core.MyUser', verbose_name='Staff')
+    staff = models.ForeignKey('core.MyUser', models.CASCADE, verbose_name='Staff')
 
-    child = models.ForeignKey('people.Child', related_name='sessions', verbose_name='Child', null=True)
+    child = models.ForeignKey('people.Child', models.CASCADE, related_name='sessions', verbose_name='Child', null=True)
 
     def __init__(self, *args, **kwargs):
         super(Session, self).__init__(*args, **kwargs)

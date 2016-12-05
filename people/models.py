@@ -165,7 +165,7 @@ class Parent(BaseModel):
     cellphone = RocPhoneNumberField('Cell Phone', blank=True)
     email = models.EmailField(blank=True)
 
-    family = models.ForeignKey('Family', related_name='parents')
+    family = models.ForeignKey('Family', models.CASCADE, related_name='parents')
 
     def __init__(self, *args, **kwargs):
         super(Parent, self).__init__(*args, **kwargs)
@@ -209,7 +209,7 @@ class Child(BaseModel):
 
     notes = models.TextField('Notes', blank=True)
 
-    family = models.ForeignKey('Family', related_name='children')
+    family = models.ForeignKey('Family', models.CASCADE, related_name='children')
 
     def __init__(self, *args, **kwargs):
         super(Child, self).__init__(*args, **kwargs)
@@ -309,7 +309,7 @@ class Language(models.Model):
                                            MinValueValidator(0)
                                        ]
                                        )
-    child = models.ForeignKey('Child', related_name='languages')
+    child = models.ForeignKey('Child', models.CASCADE, related_name='languages')
 
     class Meta:
         ordering = ['name']

@@ -60,9 +60,9 @@ class Contact(BaseModel):
     contact_result_type = models.SmallIntegerField('Result', choices=CONTACT_RESULT_TYPE)
     notes = models.TextField('Notes', blank=True)
 
-    staff = models.ForeignKey('core.MyUser')
+    staff = models.ForeignKey('core.MyUser', models.CASCADE)
 
-    child = models.ForeignKey('people.Child', related_name='contacts')
+    child = models.ForeignKey('people.Child', models.CASCADE, related_name='contacts')
 
     # study = models.ManyToManyField('study.Study', blank=True, verbose_name='studys Discussed')
 
@@ -85,9 +85,9 @@ class Contact(BaseModel):
 class Appointment(BaseModel):
     appointment_datetime = models.DateTimeField('Appointment Date/Time')
     appointment_duration = models.IntegerField('Duration', help_text='(Minutes)')
-    study = models.ForeignKey('study.Study', verbose_name='Study')
-    room = models.ForeignKey('Room', verbose_name='Room', blank=True, null=True)
-    run_by = models.ForeignKey('core.MyUser', verbose_name='Run By', blank=True, null=True)
+    study = models.ForeignKey('study.Study', models.CASCADE, verbose_name='Study')
+    room = models.ForeignKey('Room', models.CASCADE, verbose_name='Room', blank=True, null=True)
+    run_by = models.ForeignKey('core.MyUser', models.CASCADE, verbose_name='Run By', blank=True, null=True)
     status_type = models.SmallIntegerField('Status', choices=APPOINTMENT_STATUS_TYPE)
 
     reminder_made_type = models.SmallIntegerField('Reminder Made', choices=REMINDER_MADE_TYPE, blank=True, null=True)
@@ -100,7 +100,7 @@ class Appointment(BaseModel):
 
     notes = models.TextField('Notes', blank=True)
 
-    child = models.ForeignKey('people.Child', related_name='appointments')
+    child = models.ForeignKey('people.Child', models.CASCADE, related_name='appointments')
 
     # TODO:  Show Siblings
     # TODO:  Show child Age at time of appointment

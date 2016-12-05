@@ -1,4 +1,4 @@
-from django.conf.urls import url, patterns
+from django.conf.urls import url
 
 from .views import StudyListView, StudyDetailView, StudyCreateView, StudyUpdateView, SessionCreateView, SessionDetailView, SessionUpdateView, SessionListView, SessionNoListView, SessionListAllView
 urlpatterns = [

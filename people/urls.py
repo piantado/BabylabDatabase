@@ -1,4 +1,4 @@
-from django.conf.urls import url, patterns
+from django.conf.urls import url
 
 from .views import FamilyCreateView, FamilyListView, FamilyDetailView, FamilyUpdateView, ParentListView, ParentUpdateView, ParentCreateView, ChildUpdateView, ChildCreateView, ChildListView, ChildDetailView, AddressUpdateView, ParentDetailView
 

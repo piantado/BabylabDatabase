@@ -1,4 +1,4 @@
-from django.conf.urls import url, patterns, include
+from django.conf.urls import url, include
 
 from .views import ContactListView, ContactCreateView, ContactUpdateView, AppointmentListView, AppointmentCreateView, AppointmentUpdateView, AppointmentDetailView, ContactDetailView, AppointmentCalendarView, AppointmentList
 

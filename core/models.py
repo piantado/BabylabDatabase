@@ -17,8 +17,8 @@ class BaseModel(models.Model):
     created = CreationDateTimeField('created')
     modified = ModificationDateTimeField('modified')
 
-    created_by = models.ForeignKey(MyUser, verbose_name='created by', blank=True, null=True, editable=False, related_name="%(app_label)s_%(class)s_created_by")
-    modified_by = models.ForeignKey(MyUser, verbose_name='modified by', blank=True, null=True, editable=False, related_name="%(app_label)s_%(class)s_modified_by")
+    created_by = models.ForeignKey(MyUser,  models.CASCADE, verbose_name='created by', blank=True, null=True, editable=False, related_name="%(app_label)s_%(class)s_created_by")
+    modified_by = models.ForeignKey(MyUser,  models.CASCADE, verbose_name='modified by', blank=True, null=True, editable=False, related_name="%(app_label)s_%(class)s_modified_by")
 
     class Meta:
         abstract = True
