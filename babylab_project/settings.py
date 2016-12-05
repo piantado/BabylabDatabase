@@ -1,31 +1,30 @@
 # Django settings for babylab_project project.
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 import os
 
-DEBUG = False #set to true for development
-# TEMPLATE_DEBUG = DEBUG
+#set to false when running in production!
+DEBUG = True
 
-ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
-)
+ADMINS = [
+]
 
 MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
+        'NAME': '', #name of database [REQUIRED]
         # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+        'USER': '', #postgresql user who has access to the database [REQUIRED]
+        'PASSWORD': '', #password for above user [REQUIRED]
+        'HOST': 'localhost', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '', # Set to empty string for default.
     }
 }
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['*']
+# change this value when used on a different server
+ALLOWED_HOSTS = []
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -45,29 +44,32 @@ USE_I18N = True
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale.
-USE_L10N = True
+USE_L10N = False
 
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
-TIME_INPUT_FORMATS = ('%H:%M', '%I:%M%p', '%I:%M %p',)
+TIME_INPUT_FORMATS = ['%I:%M %p', '%I:%M%p', '%H:%M']
 
-DATETIME_INPUT_FORMATS = (
-    '%Y-%m-%d %I:%M%p',      # '2006-10-25 02:30PM'
-    '%Y-%m-%d %I:%M %p',     # '2006-10-25 02:30 PM'
-    '%Y-%m-%d %H:%M:%S',     # '2006-10-25 14:30:59'
-    '%Y-%m-%d %H:%M:%S.%f',  # '2006-10-25 14:30:59.000200'
-    '%Y-%m-%d %H:%M',        # '2006-10-25 14:30'
-    '%Y-%m-%d',              # '2006-10-25'
-    '%m/%d/%Y %H:%M:%S',     # '10/25/2006 14:30:59'
-    '%m/%d/%Y %H:%M:%S.%f',  # '10/25/2006 14:30:59.000200'
-    '%m/%d/%Y %H:%M',        # '10/25/2006 14:30'
-    '%m/%d/%Y',              # '10/25/2006'
-    '%m/%d/%y %H:%M:%S',     # '10/25/06 14:30:59'
-    '%m/%d/%y %H:%M:%S.%f',  # '10/25/06 14:30:59.000200'
-    '%m/%d/%y %H:%M',        # '10/25/06 14:30'
-    '%m/%d/%y',              # '10/25/06'
-)
+DATE_INPUT_FORMATS = ['%m-%d-%Y',]
+
+DATETIME_INPUT_FORMATS = [
+    '%m-%d-%Y %I:%M %p',      # '10-25-2006 02:30 PM'
+#    '%Y-%m-%d %I:%M%p',      # '2006-10-25 02:30PM'
+#    '%Y-%m-%d %I:%M %p',     # '2006-10-25 02:30 PM'
+#    '%Y-%m-%d %H:%M:%S',     # '2006-10-25 14:30:59'
+#    '%Y-%m-%d %H:%M:%S.%f',  # '2006-10-25 14:30:59.000200'
+#    '%Y-%m-%d %H:%M',        # '2006-10-25 14:30'
+#    '%Y-%m-%d',              # '2006-10-25'
+#    '%m/%d/%Y %H:%M:%S',     # '10/25/2006 14:30:59'
+#    '%m/%d/%Y %H:%M:%S.%f',  # '10/25/2006 14:30:59.000200'
+#    '%m/%d/%Y %H:%M',        # '10/25/2006 14:30'
+#    '%m/%d/%Y',              # '10/25/2006'
+#    '%m/%d/%y %H:%M:%S',     # '10/25/06 14:30:59'
+#    '%m/%d/%y %H:%M:%S.%f',  # '10/25/06 14:30:59.000200'
+#    '%m/%d/%y %H:%M',        # '10/25/06 14:30'
+#    '%m/%d/%y',              # '10/25/06'
+]
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
@@ -79,36 +81,36 @@ MEDIA_ROOT = ''
 MEDIA_URL = ''
 
 # Adding base directory
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
-
+STATIC_ROOT = '/var/www/html/static'
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
 STATIC_URL = '/static/'
 
 # Additional locations of static files
-STATICFILES_DIRS = (
+STATICFILES_DIRS = [
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(BASE_DIR, 'static'),
-)
+]
 
 # List of finder classes that know how to find static files in
 # various locations.
-STATICFILES_FINDERS = (
+STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
-)
+]
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '^b!rxr@p6_0)wu5y7ga6f772z=^!buqr5frxmu1(botmr)%8oi'
+# here's a site that can generate them if you don't want to generate your own: 
+# http://www.miniwebtool.com/django-secret-key-generator/
+SECRET_KEY = '' # [REQUIRED]
 
 #new format for templates starting in Django 1.8
 TEMPLATES = [
@@ -116,7 +118,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             # insert your TEMPLATE_DIRS here
-            'templates'
+        os.path.join(BASE_DIR, 'templates'),
+        #'templates'
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -130,23 +133,22 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
-                'django.core.context_processors.request' #added for django_tables2
+                'django.template.context_processors.request' #added for django_tables2
             ],
         },
     },
 ]
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE_CLASSES = [
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'core.middleware.WhodidMiddleware',
-)
+    'django.middleware.security.SecurityMiddleware',
+]
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
@@ -159,7 +161,7 @@ AUTH_USER_MODEL = 'core.MyUser'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.sites',
     'django.contrib.contenttypes',
@@ -181,9 +183,9 @@ INSTALLED_APPS = (
     'django_extensions',
     # 'debug_toolbar',
     'rest_framework'
-)
+]
 
-INTERNAL_IPS = ("127.0.0.1",)
+INTERNAL_IPS = ["127.0.0.1",]
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -198,18 +200,38 @@ LOGGING = {
             '()': 'django.utils.log.RequireDebugFalse'
         }
     },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(name)s.%(funcName)s:%(lineno)s- %(message)s'
+        },
+    },
     'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
+       'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '', #location of where to save log file [REQUIRED IF USING LOGGING], e.g. '/home/username/babylab_project/babylab_project/babylab.log'
+            'formatter': 'verbose'
+        },
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
+            'handlers': ['file'],
+            'level': 'DEBUG',
             'propagate': True,
+        },
+        'babylab_project': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
         },
     }
 }
+
+#other things needed to run this in production
+#currently don't have https for the server, so ignoring these
+#SESSION_COOKIE_SECURE = True
+#CSRF_COOKIE_SECURE = True
+#CSRF_COOKIE_HTTPONLY = True
+
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
