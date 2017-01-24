@@ -16,7 +16,7 @@ class ContactForm(ModelForm):
 
     class Meta:
         model = Contact
-        fields = ('contact_datetime', 'contact_mode_type', 'contact_result_type', 'staff', 'notes', 'child', )
+        fields = ('contact_datetime', 'contact_mode_type', 'contact_result_type', 'study_contacted_for', 'staff', 'notes', 'child', )
 
     def __init__(self, *args, **kwargs):
         super(ContactForm, self).__init__(*args, **kwargs)
@@ -30,6 +30,7 @@ class ContactForm(ModelForm):
                 'contact_datetime',
                 'contact_mode_type',
                 'contact_result_type',
+                'study_contacted_for',
                 'staff',
                 'notes',
                 Field('child', type='hidden'),

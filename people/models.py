@@ -86,6 +86,7 @@ LAB_REFERENCE = (
     (2, u"letter from Highland Hospital"),
     (3, u"picked up a brochure"),
     (4, u"saw an online posting"),
+    (5, u"website"),
     (5, u"other"),
 )
 
@@ -201,7 +202,8 @@ class Child(BaseModel):
     fmri = models.SmallIntegerField('fMRI', choices=FMRI_TYPE, blank=True, null=True)
     fmri_date = models.DateField('fMRI Phone Screened', blank=True, null=True)
     dob_early = models.SmallIntegerField('Born more than 3 weeks early', choices=BORN_EARLY_TYPE, blank=True, null=True)
-    disability = models.ManyToManyField(Disability, blank=True, verbose_name='Disability')
+    disability = models.ManyToManyField(Disability, blank=True, verbose_name='Disability', help_text='(Ctrl+click to deselect, Shift+click to select multiple)')
+    disability_notes = models.TextField('Disability notes', blank=True)
 
     breastfed = models.SmallIntegerField('Breastfed at birth', choices=BREASTFEEDING, blank=True, null=True)
     breastfeeding_duration = models.CharField('Duration of breastfeeding (e.g. less than a month, 6 months, 1 year)', max_length=100, blank=True)

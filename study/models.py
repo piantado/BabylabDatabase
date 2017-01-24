@@ -11,7 +11,6 @@ class Study(BaseModel):
     age_min = models.DecimalField('Age in Months (Minimum)', max_digits=5, decimal_places=2, null=True, blank=True)
     age_max = models.DecimalField('Age in Months (Maximum)', max_digits=5, decimal_places=2, null=True, blank=True)
     percent_english_heard = models.SmallIntegerField('Percent English Heard', null=True, blank=True)
- #   hearing_vision_impaired = models.BooleanField('Hearing/Vision Impaired', default=False)
     allowed_disabilities = models.ManyToManyField(Disability, blank=True, verbose_name='Allowed Disabilities', related_name="disabilities")
     born_early = models.BooleanField('Allow Premature Births', default=False)
     qualifications = models.TextField('Qualifications', blank=True)
@@ -33,7 +32,6 @@ class Study(BaseModel):
     def session_no_count(self):
         from people.models import Child
         return Child.objects.all().aggregate(child_total=models.Count('id'))["child_total"] - self.session_count()
-        # return Child.objects.all().aggregate() - self.session_count()
 
     session_no_count.short_description = 'No Session Count'
 

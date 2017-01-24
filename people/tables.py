@@ -6,13 +6,14 @@ from core.tables import OpenColumn, BaseTable
 
 
 class ChildTable(BaseTable):
+
     class Meta(BaseTable.Meta):
         model = Child
         order_by = ('family', 'name_first_text',)
-        fields = ('id', 'name_first_text', 'name_last_text', 'family', 'gender_type', 'dob_date', 'age', )
+        fields = ('id', 'pk', 'name_first_text', 'name_last_text', 'family', 'gender_type', 'dob_date', 'age', )
 
     id = OpenColumn('child_detail', icon='child', kwargs={'pk': Accessor('pk')}, attrs={'a': {'class': 'btn btn-primary btn-sm'}}, verbose_name='Action', orderable=False)
-
+    pk = tables.columns.Column(verbose_name="ID")
 
 class ParentTable(BaseTable):
 
@@ -21,7 +22,6 @@ class ParentTable(BaseTable):
         fields = ('id', 'name_first_text', 'name_last_text', 'family', 'guardian_type', 'workphone', 'cellphone', 'email', )
 
     id = OpenColumn('parent_detail', icon='female', kwargs={'pk': Accessor('pk')}, attrs={'a': {'class': 'btn btn-primary btn-sm'}}, verbose_name='Action', orderable=False)
-
 
 class FamilyTable(BaseTable):
     class Meta(BaseTable.Meta):

@@ -48,7 +48,7 @@ class ContactCreateView(LoginRequiredMixin, CreateView):
 
         if form.cleaned_data['contact_result_type'] == 0:
             super(ContactCreateView, self).form_valid(form)
-            return HttpResponseRedirect(reverse('appointment_add', kwargs={'pk': self.kwargs.get(self.pk_url_kwarg, None)}))
+            return HttpResponseRedirect(reverse('appointment_add', kwargs={'pk': form.cleaned_data['child'].id}))
         else:
             return super(ContactCreateView, self).form_valid(form)
 
@@ -69,7 +69,7 @@ class ContactUpdateView(LoginRequiredMixin, UpdateView):
 
         if form.cleaned_data['contact_result_type'] == 0:
             super(ContactUpdateView, self).form_valid(form)
-            return HttpResponseRedirect(reverse('appointment_add', kwargs={'pk': self.kwargs.get(self.pk_url_kwarg, None)}))
+            return HttpResponseRedirect(reverse('appointment_add', kwargs={'pk': form.cleaned_data['child'].id}))
         else:
             return super(ContactUpdateView, self).form_valid(form)
 
@@ -120,17 +120,14 @@ class AppointmentCreateView(LoginRequiredMixin, CreateView):
         if form.cleaned_data['status_type'] == 0:
             super(AppointmentCreateView, self).form_valid(form)
             from study.models import Session
-            if Session.objects.filter(child=self.kwargs.get(self.pk_url_kwarg, None), study=form.cleaned_data['study'].id).exists():
-                session = Session.objects.get(child=self.kwargs.get(self.pk_url_kwarg, None), study=form.cleaned_data['study'].id)
+            if Session.objects.filter(child=form.cleaned_data['child'].id, study=form.cleaned_data['study'].id).exists():
+                session = Session.objects.get(child=form.cleaned_data['child'].id, study=form.cleaned_data['study'].id)
                 return HttpResponseRedirect(reverse('session_update', kwargs={'pk': session.pk}))
             else:
-                return HttpResponseRedirect(reverse('session_add', kwargs={'pk': self.kwargs.get(self.pk_url_kwarg, None), 'key': form.cleaned_data['study'].id}))
+                return HttpResponseRedirect(reverse('session_add', kwargs={'pk': form.cleaned_data['child'].id, 'key': form.cleaned_data['study'].id}))
         else:
-            return super(AppointmentCreateView, self).form_valid(form)
-
-    # def form_valid(self, form):
-    #     messages.success(self.request, "Success adding: %s %s" % (form.cleaned_data['appointment_datetime'], form.cleaned_data['child']))
-    #     return super(AppointmentCreateView, self).form_valid(form)
+            super(AppointmentCreateView, self).form_valid(form)
+            return HttpResponseRedirect(reverse('child_detail', kwargs={'pk': form.cleaned_data['child'].id}))
 
 
 class AppointmentUpdateView(LoginRequiredMixin, UpdateView):
@@ -150,13 +147,15 @@ class AppointmentUpdateView(LoginRequiredMixin, UpdateView):
         if form.cleaned_data['status_type'] == 0:
             super(AppointmentUpdateView, self).form_valid(form)
             from study.models import Session
-            if Session.objects.filter(child=self.kwargs.get(self.pk_url_kwarg, None), study=form.cleaned_data['study'].id).exists():
-                session = Session.objects.get(child=self.kwargs.get(self.pk_url_kwarg, None), study=form.cleaned_data['study'].id)
+            if Session.objects.filter(child=form.cleaned_data['child'].id, study=form.cleaned_data['study'].id).exists():
+                session = Session.objects.get(child=form.cleaned_data['child'].id, study=form.cleaned_data['study'].id)
                 return HttpResponseRedirect(reverse('session_update', kwargs={'pk': session.pk}))
             else:
-                return HttpResponseRedirect(reverse('session_add', kwargs={'pk': self.kwargs.get(self.pk_url_kwarg, None), 'key': form.cleaned_data['study'].id}))
+                return HttpResponseRedirect(reverse('session_add', kwargs={'pk': form.cleaned_data['child'].id, 'key': form.cleaned_data['study'].id}))
+
         else:
-            return super(AppointmentUpdateView, self).form_valid(form)
+            super(AppointmentUpdateView, self).form_valid(form)
+            return HttpResponseRedirect(reverse('child_detail', kwargs={'pk': form.cleaned_data['child'].id}))
 
 
 class AppointmentDetailView(LoginRequiredMixin, CreatedMixin, DetailView):

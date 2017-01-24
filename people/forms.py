@@ -120,7 +120,7 @@ class ChildForm(forms.ModelForm):
     class Meta:
         model = Child
         fields = ('name_first_text', 'name_last_text', 'gender_type', 'dob_date', 'babylab_id', 'kid_neurolab_id', 'ethnicity', 'race',
-                  'handedness', 'fmri', 'fmri_date', 'dob_early', 'disability', 'breastfed', 'breastfeeding_duration', 'bottle_fed',
+                  'handedness', 'fmri', 'fmri_date', 'dob_early', 'disability', 'disability_notes', 'breastfed', 'breastfeeding_duration', 'bottle_fed',
                   'notes', 'family')
 
     def __init__(self, *args, **kwargs):
@@ -154,6 +154,7 @@ class ChildForm(forms.ModelForm):
                 'fmri_date',
                 'dob_early',
                 'disability',
+                'disability_notes',
             ),
             Fieldset(
                 'Misc',

@@ -21,10 +21,11 @@ CONTACT_RESULT_TYPE = (
     (1, u"Appt Declined"),
     (2, u"Call Again Later"),
     (3, u"Left Message"),
-    (4, u"No Contact Made"),
-    (5, u"Cancelled Appt"),
-    (6, u"Does Not Qualify"),
-    (7, u"Entered Into Database"),
+    (4, u"Emailed"),
+    (5, u"No Contact Made"),
+    (6, u"Cancelled Appt"),
+    (7, u"Does Not Qualify"),
+    (8, u"Entered Into Database"),
 )
 
 REMINDER_MADE_TYPE = (
@@ -59,6 +60,7 @@ class Contact(BaseModel):
     contact_mode_type = models.SmallIntegerField('Mode of Contact', choices=CONTACT_MODE_TYPE)
     contact_result_type = models.SmallIntegerField('Result', choices=CONTACT_RESULT_TYPE)
     notes = models.TextField('Notes', blank=True)
+    study_contacted_for = models.ForeignKey('study.Study', models.CASCADE, verbose_name='Study', blank=True, null=True)
 
     staff = models.ForeignKey('core.MyUser', models.CASCADE)
 
