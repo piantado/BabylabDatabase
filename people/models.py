@@ -87,7 +87,7 @@ LAB_REFERENCE = (
     (3, u"picked up a brochure"),
     (4, u"saw an online posting"),
     (5, u"website"),
-    (5, u"other"),
+    (6, u"other"),
 )
 
 
