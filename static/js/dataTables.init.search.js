@@ -59,6 +59,11 @@ $(document).ready(function () {
             table.api().draw();
         } );
 
+        // Event listener for the contact filtering input to redraw on input
+        $('#contact_limit_days').keyup( function() {
+            table.api().draw();
+        } );
+
         // Event listener for born early parameter for filtering to redraw on input
         $('#premature_ok').change( function() {
             table.api().draw();
@@ -164,6 +169,27 @@ $.fn.dataTable.ext.search.push(
 
 $.fn.dataTable.ext.search.push(
     function( settings, data, dataIndex ) {
+        var min_days = parseFloat( $('#contact_limit_days').val());
+        var lastContactDateString = data[8] || "1/1/1970"; //default date is first day in Unix time
+        var dateParts = lastContactDateString.split('/'); //relying on a mm/dd/yyyy format
+        var lastContactDate = new Date(dateParts[2], dateParts[0]-1, dateParts[1]); //js starts month count from 0
+        var currentDate = new Date();
+        var timeDifference = currentDate.getTime() - lastContactDate.getTime();
+        var daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)); 
+
+
+        if ( isNaN( min_days ) ||
+             isNaN(daysDifference) ||
+             ( min_days < daysDifference ) )
+        {
+            return true;
+        }
+        return false;
+    }
+);
+
+$.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
         var prematureOK = $('#premature_ok').is(':checked');
         var bornEarly = data[4] || ''; // use data for the premature column
 
@@ -180,23 +206,6 @@ $.fn.dataTable.ext.search.push(
         }
     }
 );
-
-/*for (var curDisability = 0; curDisability < numDisabilities; curDisability++) {
-    $.fn.dataTable.ext.search.push(
-        function( settings, data, dataIndex ) {
-            var disabilityOK = $('#' + disabilityNames[curDisability]).is(':checked');
-            var disabilityColumn = data[5] || ''; // use data for the disability column
-
-            console.log(disabilityOK);
-            if (disabilityOK) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
-    );
-}*/
 
 $.fn.dataTable.ext.search.push(
     function( settings, data, dataIndex ) {
