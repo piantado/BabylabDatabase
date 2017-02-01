@@ -171,7 +171,7 @@ class SessionNoListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(SessionNoListView, self).get_context_data(**kwargs)
-        context['session_table'] = NoSessionTable(Study.session_not_taken(self.study), prefix='1-')
+        context['session_table'] = NoSessionTable(Study.session_not_taken(self.study), current_study=self.study, prefix='1-')
         RequestConfig(self.request).configure(context['session_table'])
         context['study'] = self.study
         context['all_disabilities'] = Disability.objects.all()

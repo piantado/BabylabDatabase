@@ -282,17 +282,16 @@ class Child(BaseModel):
     eng_heard = property(_get_lang_eng_heard)
 
 
-    def _get_last_time_contacted(self):
+    def get_last_time_contacted(self, current_study):
         """
         Returns the date the last time the child (via the parent) was contacted
         """
-        child_contacts = Contact.objects.filter(child=self)
+        child_contacts = Contact.objects.filter(child=self, study_contacted_for=current_study)
         if child_contacts.exists():
             latest_date = child_contacts.latest('contact_datetime').contact_datetime
             return latest_date.strftime('%m/%d/%Y')
         else:
             return None
-    last_time_contacted = property(_get_last_time_contacted)
 
 
 class Guardian(models.Model):

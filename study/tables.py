@@ -39,6 +39,19 @@ class NoSessionTable(BaseTable):
     disability = tables.columns.TemplateColumn(attrs={'th': {'class': 'text-search'}}, verbose_name='Disability', template_name='study/column_multi_disability.html', orderable=False)
     dob_early = tables.columns.Column(attrs={'th': {'class': 'filter'}})
     gender_type = tables.columns.Column(attrs={'th': {'class': 'filter'}})
+    last_time_contacted = tables.columns.Column(empty_values=())
+
+    def __init__(self, *args, **kwargs):
+        if 'current_study' in kwargs:
+            self.study = kwargs.pop('current_study')
+        super(NoSessionTable, self).__init__(*args, **kwargs)
+
+    def render_last_time_contacted(self, record):
+        contact_time = record.get_last_time_contacted(self.study)
+        if contact_time is None:
+            return ''
+        else:
+            return contact_time
 
 
 class SessionTable(BaseTable):
