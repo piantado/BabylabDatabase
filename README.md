@@ -310,7 +310,9 @@ psql -f /path/to/globals.sql postgres
 > 
 > *The fix so far for our data has been to load the file twice in order for it to populate all the data!*
 
+
  ## Clearing the database ##
+ 
  To clear a database (only the data in the database, not the tables themselves), use the command:
  ```
  python manage.py flush
