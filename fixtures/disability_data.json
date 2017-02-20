@@ -1,0 +1,21 @@
+[
+  {
+    "model": "core.disability",
+    "pk": 1,
+    "fields": {
+      "name": "Vision/Hearing Loss",
+      "htmlname": "vision-hearing",
+      "order": 0.00
+    }
+  },
+  {
+    "model": "core.disability",
+    "pk": 2,
+    "fields": {
+      "name": "Serious Injury/Illness",
+      "htmlname": "injury-illness",
+      "order": 1.00
+    }
+  }
+]
+    

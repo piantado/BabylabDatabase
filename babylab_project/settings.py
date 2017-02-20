@@ -1,7 +1,7 @@
 # Django settings for babylab_project project.
 import os
 
-#set to false when running in production!
+#set to False when running in production!
 DEBUG = True
 
 ADMINS = [
@@ -24,7 +24,7 @@ DATABASES = {
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 # change this value when used on a different server
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -88,6 +88,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
 STATIC_ROOT = '/var/www/html/static'
+
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
 STATIC_URL = '/static/'
@@ -105,6 +106,12 @@ STATICFILES_DIRS = [
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+# Directory for where any fixture files will be stored
+# (Fixture files are used to add initial data to a database)
+FIXTURE_DIRS = [
+    os.path.join(BASE_DIR, 'fixtures'),
 ]
 
 # Make this unique, and don't share it with anybody.
