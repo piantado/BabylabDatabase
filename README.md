@@ -315,7 +315,7 @@ If you're testing out if this process works, you can manually clear the database
  python manage.py flush
  ```
 
- ## JS/CSS Other code used ##
+## JS/CSS Other code used ##
 
 - FontAwesome (v4): [https://fortawesome.github.io/Font-Awesome/](https://fortawesome.github.io/Font-Awesome/)
 - Bootstrap (v3): [http://getbootstrap.com/](http://getbootstrap.com/)
