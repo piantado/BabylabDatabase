@@ -24,6 +24,7 @@ class ContactListView(LoginRequiredMixin, SingleTableMixin, ListView):
     model = Contact
     template_name = 'scheduling/contact_list.html'
     table_class = ContactTable
+    table_pagination = False
 
 
 class ContactCreateView(LoginRequiredMixin, CreateView):
@@ -95,6 +96,7 @@ class AppointmentListView(LoginRequiredMixin, SingleTableMixin, ListView):
     model = Appointment
     template_name = 'scheduling/appointment_list.html'
     table_class = AppointmentTable
+    table_pagination = False
 
 
 class AppointmentCreateView(LoginRequiredMixin, CreateView):

@@ -20,18 +20,21 @@ class FamilyListView(LoginRequiredMixin, SingleTableMixin, ListView):
     model = Family
     template_name = 'people/family_list.html'
     table_class = FamilyTable
+    table_pagination = False
 
 
 class ParentListView(LoginRequiredMixin, SingleTableMixin, ListView):
     model = Parent
     template_name = 'people/parent_list.html'
     table_class = ParentTable
+    table_pagination = False
 
 
 class ChildListView(LoginRequiredMixin, SingleTableMixin, ListView):
     model = Child
     template_name = 'people/child_list.html'
     table_class = ChildTable
+    table_pagination = False
 
 
 class FamilyDetailView(LoginRequiredMixin, CreatedMixin, DetailView):

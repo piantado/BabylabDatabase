@@ -23,6 +23,7 @@ class StudyListView(LoginRequiredMixin, SingleTableMixin, ListView):
     template_name = 'study/study_list.html'
     context_object_name = 'study_list'
     table_class = StudyTable
+    table_pagination = False
 
 
 class StudyDetailView(LoginRequiredMixin, DetailView):
@@ -91,6 +92,7 @@ class SessionListAllView(LoginRequiredMixin, SingleTableMixin, ListView):
     model = Study
     template_name = 'study/session_list_all.html'
     table_class = SessionListTable
+    table_pagination = False
 
 
 class SessionCreateView(LoginRequiredMixin, CreateView):
@@ -155,7 +157,7 @@ class SessionListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(SessionListView, self).get_context_data(**kwargs)
         context['session_table'] = SessionTable(Study.session_taken(self.study), prefix='1-')
-        RequestConfig(self.request).configure(context['session_table'])
+        RequestConfig(self.request, paginate=False).configure(context['session_table'])
         context['study'] = self.study
         return context
 
@@ -172,7 +174,7 @@ class SessionNoListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(SessionNoListView, self).get_context_data(**kwargs)
         context['session_table'] = NoSessionTable(Study.session_not_taken(self.study), current_study=self.study, prefix='1-')
-        RequestConfig(self.request).configure(context['session_table'])
+        RequestConfig(self.request, paginate=False).configure(context['session_table'])
         context['study'] = self.study
         context['all_disabilities'] = Disability.objects.all()
         return context
