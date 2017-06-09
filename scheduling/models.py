@@ -26,6 +26,7 @@ CONTACT_RESULT_TYPE = (
     (6, u"Cancelled Appt"),
     (7, u"Does Not Qualify"),
     (8, u"Entered Into Database"),
+    (9, u"May Be Interested in the Future")
 )
 
 REMINDER_MADE_TYPE = (

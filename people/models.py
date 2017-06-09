@@ -47,6 +47,8 @@ RACE_TYPE = (
     (2, u"American Indian or Alaskan Native"),
     (3, u"Asian"),
     (4, u"Hawaiian Native & Pacific Islander"),
+    (5, u"More than one"),
+    (6, u"Other")
 )
 
 HAND_TYPE = (
